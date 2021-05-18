@@ -25,9 +25,9 @@ jobs:
       #    jq -r '.task.payload.mounts[] | select(.format == \"zip\" and .directory == \"mozharness\") | .content.taskId' task.json
       - name: extract mozharness
         run: |
-          curl -L https://hg.mozilla.org/try/raw-file/569402cc75c3437ad914fafbc174718ce7594885/taskcluster/scripts/misc/fetch-content --output fetch-content
-          curl -L https://hg.mozilla.org/try/raw-file/569402cc75c3437ad914fafbc174718ce7594885/taskcluster/scripts/run-task --output run-task
-          curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/E8sqJ0xnRMW6j5ak3oBg1A/artifacts/public/build/mozharness.zip --output mozharness.zip
+          curl -L https://hg.mozilla.org/try/raw-file/7d38fea9318fd3e687a88a90ddef1f4b08495975/taskcluster/scripts/misc/fetch-content --output fetch-content
+          curl -L https://hg.mozilla.org/try/raw-file/7d38fea9318fd3e687a88a90ddef1f4b08495975/taskcluster/scripts/run-task --output run-task
+          curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/EZsDbe9aQGyZkw4K3F8FJw/artifacts/public/build/mozharness.zip --output mozharness.zip
           7z x -omozharness mozharness.zip
       - name: install deps
         run: |
@@ -38,19 +38,21 @@ jobs:
           python -m pip install --upgrade pypiwin32
           python -m pip install --upgrade wheel
           python -m pip install --upgrade virtualenv
-          python -m pip install --upgrade Twisted
+          md c:\hostedtoolcache\windows\python\3.7.9\x64\lib\site-packages\virtualenv_support
+          curl -L https://files.pythonhosted.org/packages/f2/16/3eb9c66a7bfb5220c7bcbaaac33d359fe8a157b028959cd210983749b2e0/Twisted-21.2.0-py3-none-any.whl --output c:\hostedtoolcache\windows\python\3.7.9\x64\lib\site-packages\virtualenv_support\Twisted-21.2.0-py3-none-any.whl
+          python -m pip install --upgrade c:\hostedtoolcache\windows\python\3.7.9\x64\lib\site-packages\virtualenv_support\Twisted-21.2.0-py3-none-any.whl
       - name: run task
         env:
           TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
           PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
           MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"Lhs91AvoT-28yyuTcna2Gw\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"R1KCnxRaToGjTtbWHHBZgA\"}]"
           MOZ_SCM_LEVEL: 1
-          GECKO_HEAD_REV: 569402cc75c3437ad914fafbc174718ce7594885
+          GECKO_HEAD_REV: 7d38fea9318fd3e687a88a90ddef1f4b08495975
           MOZ_AUTOMATION: 1
           MOZ_FETCHES_DIR: fetches
           SCCACHE_DISABLE: 1
           GECKO_HEAD_REPOSITORY: https://hg.mozilla.org/try
           MOZHARNESS_TEST_PATHS: "{\"mochitest-devtools-chrome\": [\"devtools/client/aboutdebugging/test/browser/browser.ini\", \"devtools/client/application/test/browser/browser.ini\", \"devtools/client/framework/test/browser-enable-popup-devtools-user.ini\", \"devtools/client/framework/test/browser-enable-popup-new-user.ini\", \"devtools/client/inspector/compatibility/test/browser/browser.ini\", \"devtools/client/inspector/test/browser.ini\", \"devtools/client/performance/test/browser.ini\", \"devtools/client/shared/sourceeditor/test/browser.ini\", \"devtools/server/tests/browser/browser.ini\", \"devtools/shared/commands/inspector/tests/browser.ini\", \"devtools/shared/webconsole/test/browser/browser.ini\", \"devtools/startup/tests/browser/browser.ini\"]}"
-          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/E8sqJ0xnRMW6j5ak3oBg1A/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/E8sqJ0xnRMW6j5ak3oBg1A/artifacts/public/build/target.test_packages.json\"}"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/EZsDbe9aQGyZkw4K3F8FJw/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/EZsDbe9aQGyZkw4K3F8FJw/artifacts/public/build/target.test_packages.json\"}"
         run: |
           python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-devtools-chrome --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --download-symbols ondemand
