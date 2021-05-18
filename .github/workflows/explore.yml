@@ -10,7 +10,6 @@ jobs:
       - uses: actions/checkout@v2
       - name: explore environment
         run: |
-          7z
           curl --version
           git --version
           hg --version
@@ -38,6 +37,8 @@ jobs:
           python -m pip install --upgrade pypiwin32
           python -m pip install --upgrade wheel
           python -m pip install --upgrade virtualenv
+          curl -L https://pypi.python.org/packages/cp27/p/pypiwin32/pypiwin32-219-cp27-none-win32.whl#md5=a8b0c1b608c1afeb18cd38d759ee5e29 --output c:\hostedtoolcache\windows\python\3.7.9\x64\lib\site-packages\virtualenv_support\pypiwin32-219-cp27-none-win32.whl
+          curl -L https://pypi.python.org/packages/cp27/p/pypiwin32/pypiwin32-219-cp27-none-win_amd64.whl#md5=d7bafcf3cce72c3ce9fdd633a262c335" --output c:\hostedtoolcache\windows\python\3.7.9\x64\lib\site-packages\virtualenv_support\pypiwin32-219-cp27-none-win_amd64.whl
           python -m pip install --upgrade twisted==18.7.0
       - name: run task
         env:
