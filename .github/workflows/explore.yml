@@ -31,6 +31,10 @@ jobs:
           curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/AflwW4nqTm2fTsFlBwZhFQ/artifacts/public/build/mozharness.zip --output mozharness.zip
           7z x -omozharness mozharness.zip
           dir
+      - name: install deps
+        run: |
+          python -m pip install --upgrade zstandard
+          python -m pip install --upgrade certifi
       - name: run task
         env:
           TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
