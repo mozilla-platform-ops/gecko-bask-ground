@@ -8,13 +8,14 @@ jobs:
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@v2
-      #- name: explore environment
-      #  run: |
-      #    curl --version
-      #    git --version
-      #    hg --version
-      #    jq --version
-      #    python --version
+      - name: explore environment
+        run: |
+          7z
+          curl --version
+          git --version
+          hg --version
+          jq --version
+          python --version
       #- name: find task
       #  run: |
       #    curl -sL https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task-group/C02r2EkOTBauTVFINs-kOQ/list --output task-group.json
@@ -25,11 +26,12 @@ jobs:
       #    jq -r '.task.payload.mounts[] | select(.format == \"zip\" and .directory == \"mozharness\") | .content.taskId' task.json
       - name: extract mozharness
         run: |
-          curl -sL https://hg.mozilla.org/mozilla-central/raw-file/50c8711162bd0aa7931a425f1bd77e85c1f05ce5/taskcluster/scripts/misc/fetch-content --output fetch-content
-          curl -sL https://hg.mozilla.org/mozilla-central/raw-file/50c8711162bd0aa7931a425f1bd77e85c1f05ce5/taskcluster/scripts/run-task --output run-task
-          curl -sL https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/AflwW4nqTm2fTsFlBwZhFQ/artifacts/public/build/mozharness.zip --output mozharness.zip
+          curl -L https://hg.mozilla.org/mozilla-central/raw-file/50c8711162bd0aa7931a425f1bd77e85c1f05ce5/taskcluster/scripts/misc/fetch-content --output fetch-content
+          curl -L https://hg.mozilla.org/mozilla-central/raw-file/50c8711162bd0aa7931a425f1bd77e85c1f05ce5/taskcluster/scripts/run-task --output run-task
+          curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/AflwW4nqTm2fTsFlBwZhFQ/artifacts/public/build/mozharness.zip --output mozharness.zip
           7z x mozharness.zip
           dir
       - name: run task
         run: |
-          python run-task -- python -u mozharness\\scripts\\desktop_unittest.py --cfg mozharness\\configs\\unittests\\win_unittest.py --mochitest-suite=mochitest-devtools-chrome --code-coverage --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --enable-webrender --setpref=layers.d3d11.enable-blacklist=false --download-symbols ondemand
+          dir mozharness
+          python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-devtools-chrome --code-coverage --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --enable-webrender --setpref=layers.d3d11.enable-blacklist=false --download-symbols ondemand
