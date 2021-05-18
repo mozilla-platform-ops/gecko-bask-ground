@@ -15,3 +15,7 @@ jobs:
           hg --version
           jq --version
           python --version
+      - name: find tasks
+        run: |
+          curl -sL https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task-group/C02r2EkOTBauTVFINs-kOQ/list --output task-group.json
+          jq '.' task-group.json
