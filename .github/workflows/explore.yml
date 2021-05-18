@@ -34,13 +34,15 @@ jobs:
         run: |
           python -m pip install --upgrade zstandard
           python -m pip install --upgrade certifi
-          python -m pip install --upgrade pypiwin32
           python -m pip install --upgrade wheel
           python -m pip install --upgrade virtualenv
           mkdir c:\hostedtoolcache\windows\python\3.7.9\x64\lib\site-packages\virtualenv_support
+          curl -L https://download.lfd.uci.edu/pythonlibs/q4trcu4l/Twisted-21.2.0-py3-none-any.whl --output c:\hostedtoolcache\windows\python\3.7.9\x64\lib\site-packages\virtualenv_support\Twisted-21.2.0-py3-none-any.whl
+          python -m pip install --upgrade c:\hostedtoolcache\windows\python\3.7.9\x64\lib\site-packages\virtualenv_support\Twisted-21.2.0-py3-none-any.whl
           curl -L https://pypi.python.org/packages/cp27/p/pypiwin32/pypiwin32-219-cp27-none-win32.whl#md5=a8b0c1b608c1afeb18cd38d759ee5e29 --output c:\hostedtoolcache\windows\python\3.7.9\x64\lib\site-packages\virtualenv_support\pypiwin32-219-cp27-none-win32.whl
+          python -m pip install --upgrade c:\hostedtoolcache\windows\python\3.7.9\x64\lib\site-packages\virtualenv_support\pypiwin32-219-cp27-none-win32.whl
           curl -L https://pypi.python.org/packages/cp27/p/pypiwin32/pypiwin32-219-cp27-none-win_amd64.whl#md5=d7bafcf3cce72c3ce9fdd633a262c335 --output c:\hostedtoolcache\windows\python\3.7.9\x64\lib\site-packages\virtualenv_support\pypiwin32-219-cp27-none-win_amd64.whl
-          python -m pip install --upgrade twisted==18.7.0
+          python -m pip install --upgrade c:\hostedtoolcache\windows\python\3.7.9\x64\lib\site-packages\virtualenv_support\pypiwin32-219-cp27-none-win_amd64.whl
       - name: run task
         env:
           TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
