@@ -29,7 +29,7 @@ jobs:
           curl -L https://hg.mozilla.org/mozilla-central/raw-file/50c8711162bd0aa7931a425f1bd77e85c1f05ce5/taskcluster/scripts/run-task --output run-task
           curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/AflwW4nqTm2fTsFlBwZhFQ/artifacts/public/build/mozharness.zip --output mozharness.zip
           7z x -omozharness mozharness.zip
-          dir
+          D:\\a\\gecko-bask-ground\\gecko-bask-ground\\build\\tests\\mochitest\\websocketprocessbridge\\websocketprocessbridge_requirements_3.txt
       - name: install deps
         run: |
           python -m pip cache dir
@@ -42,8 +42,7 @@ jobs:
           md c:\hostedtoolcache\windows\python\3.7.9\x64\lib\site-packages\virtualenv_support
           curl -L https://download.lfd.uci.edu/pythonlibs/q4trcu4l/Twisted-20.3.0-cp37-cp37m-win_amd64.whl --output c:\hostedtoolcache\windows\python\3.7.9\x64\lib\site-packages\virtualenv_support\Twisted-20.3.0-cp37-cp37m-win_amd64.whl
           python -m pip install --upgrade c:\hostedtoolcache\windows\python\3.7.9\x64\lib\site-packages\virtualenv_support\Twisted-20.3.0-cp37-cp37m-win_amd64.whl
-          md d:\a\gecko-bask-ground\gecko-bask-ground\build\venv\lib\site-packages\virtualenv_support
-          copy c:\hostedtoolcache\windows\python\3.7.9\x64\lib\site-packages\virtualenv_support\Twisted-20.3.0-cp37-cp37m-win_amd64.whl d:\a\gecko-bask-ground\gecko-bask-ground\build\venv\lib\site-packages\virtualenv_support\Twisted-20.3.0-cp37-cp37m-win_amd64.whl
+          copy c:\hostedtoolcache\windows\python\3.7.9\x64\lib\site-packages\virtualenv_support\Twisted-20.3.0-cp37-cp37m-win_amd64.whl c:\users\runneradmin\appdata\local\pip\cache\Twisted-20.3.0-cp37-cp37m-win_amd64.whl
       - name: run task
         env:
           TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
