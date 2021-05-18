@@ -15,8 +15,11 @@ jobs:
           hg --version
           jq --version
           python --version
-      - name: find tasks
+      - name: find task
         run: |
           curl -sL https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task-group/C02r2EkOTBauTVFINs-kOQ/list --output task-group.json
           jq --arg workerType 't-win10-64' '[ .tasks[] | select(.status.workerType == $workerType) ]' task-group.json > t-win10-64.json
-          jq '.[0]' t-win10-64.json
+          jq '.[0]' t-win10-64.json > task.json
+      - name: run task
+        run: |
+          jq '.' task.json
