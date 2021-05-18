@@ -8,18 +8,21 @@ jobs:
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@v2
-      - name: explore environment
+      #- name: explore environment
+      #  run: |
+      #    curl --version
+      #    git --version
+      #    hg --version
+      #    jq --version
+      #    python --version
+      #- name: find task
+      #  run: |
+      #    curl -sL https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task-group/C02r2EkOTBauTVFINs-kOQ/list --output task-group.json
+      #    jq --arg workerType 't-win10-64' '[ .tasks[] | select(.status.workerType == $workerType) ]' task-group.json > t-win10-64.json
+      #    jq '.[0]' t-win10-64.json > task.json
+      #- name: extract mozharness
+      #  run: |
+      #    jq -r '.task.payload.mounts[] | select(.format == \"zip\" and .directory == \"mozharness\") | .content.taskId' task.json
+      - name: extract mozharness
         run: |
-          curl --version
-          git --version
-          hg --version
-          jq --version
-          python --version
-      - name: find task
-        run: |
-          curl -sL https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task-group/C02r2EkOTBauTVFINs-kOQ/list --output task-group.json
-          jq --arg workerType 't-win10-64' '[ .tasks[] | select(.status.workerType == $workerType) ]' task-group.json > t-win10-64.json
-          jq '.[0]' t-win10-64.json > task.json
-      - name: run task
-        run: |
-          jq '.' task.json
+          curl -sL https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/AflwW4nqTm2fTsFlBwZhFQ/artifacts/public/build/mozharness.zip --output mozharness.zip
