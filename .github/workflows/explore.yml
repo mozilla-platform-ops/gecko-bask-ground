@@ -35,7 +35,7 @@ jobs:
         run: |
           python -m pip install --upgrade zstandard
           python -m pip install --upgrade certifi
-          python -m pip install --upgrade twisted
+          python -m pip install --upgrade twisted==18.7.0
       - name: run task
         env:
           TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
