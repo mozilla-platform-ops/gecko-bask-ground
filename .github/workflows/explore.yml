@@ -29,7 +29,7 @@ jobs:
           curl -L https://hg.mozilla.org/mozilla-central/raw-file/50c8711162bd0aa7931a425f1bd77e85c1f05ce5/taskcluster/scripts/misc/fetch-content --output fetch-content
           curl -L https://hg.mozilla.org/mozilla-central/raw-file/50c8711162bd0aa7931a425f1bd77e85c1f05ce5/taskcluster/scripts/run-task --output run-task
           curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/AflwW4nqTm2fTsFlBwZhFQ/artifacts/public/build/mozharness.zip --output mozharness.zip
-          7z x -o mozharness mozharness.zip
+          7z x -omozharness mozharness.zip
           dir
       - name: run task
         run: |
