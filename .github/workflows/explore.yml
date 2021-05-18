@@ -32,6 +32,16 @@ jobs:
           7z x -omozharness mozharness.zip
           dir
       - name: run task
+        env:
+          PYTHON: python
+          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"Lhs91AvoT-28yyuTcna2Gw\"}, {\"artifact\": \"public/build/grcov.tar.bz2\", \"extract\": true, \"task\": \"IszAfcOISyiI6WUl52BqFQ\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"R1KCnxRaToGjTtbWHHBZgA\"}]"
+          MOZ_SCM_LEVEL: 3
+          GECKO_HEAD_REV: 50c8711162bd0aa7931a425f1bd77e85c1f05ce5
+          MOZ_AUTOMATION: 1
+          MOZ_FETCHES_DIR: fetches
+          SCCACHE_DISABLE: 1
+          GECKO_HEAD_REPOSITORY: https://hg.mozilla.org/mozilla-central
+          MOZHARNESS_TEST_PATHS: "{\"mochitest-devtools-chrome\": [\"devtools/client/inspector/animation/test/browser.ini\", \"devtools/client/memory/test/browser/browser.ini\", \"devtools/client/storage/test/browser.ini\", \"devtools/shared/heapsnapshot/tests/browser/browser.ini\", \"devtools/shared/webconsole/test/browser/browser.ini\", \"devtools/shared/worker/tests/browser/browser.ini\"]}"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/AflwW4nqTm2fTsFlBwZhFQ/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/AflwW4nqTm2fTsFlBwZhFQ/artifacts/public/build/target.test_packages.json\"}"
         run: |
-          dir mozharness
           python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-devtools-chrome --code-coverage --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --enable-webrender --setpref=layers.d3d11.enable-blacklist=false --download-symbols ondemand
