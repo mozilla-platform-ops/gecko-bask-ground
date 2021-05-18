@@ -33,7 +33,8 @@ jobs:
           dir
       - name: run task
         env:
-          PYTHON: python
+          TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
+          PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
           MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"Lhs91AvoT-28yyuTcna2Gw\"}, {\"artifact\": \"public/build/grcov.tar.bz2\", \"extract\": true, \"task\": \"IszAfcOISyiI6WUl52BqFQ\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"R1KCnxRaToGjTtbWHHBZgA\"}]"
           MOZ_SCM_LEVEL: 3
           GECKO_HEAD_REV: 50c8711162bd0aa7931a425f1bd77e85c1f05ce5
