@@ -26,3 +26,5 @@ jobs:
       - name: extract mozharness
         run: |
           curl -sL https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/AflwW4nqTm2fTsFlBwZhFQ/artifacts/public/build/mozharness.zip --output mozharness.zip
+          7z x mozharness.zip
+          dir
