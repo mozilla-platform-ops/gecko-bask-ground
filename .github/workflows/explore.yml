@@ -13,4 +13,5 @@ jobs:
           curl --version
           git --version
           hg --version
+          jq --version
           python --version
