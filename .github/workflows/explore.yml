@@ -38,8 +38,8 @@ jobs:
           python -m pip install --upgrade wheel
           python -m pip install --upgrade virtualenv
           mkdir c:\hostedtoolcache\windows\python\3.7.9\x64\lib\site-packages\virtualenv_support
-          curl -L https://download.lfd.uci.edu/pythonlibs/q4trcu4l/cp34/Twisted-18.9.0-cp34-cp34m-win_amd64.whl --output c:\hostedtoolcache\windows\python\3.7.9\x64\lib\site-packages\virtualenv_support\Twisted-18.9.0-cp34-cp34m-win_amd64.whl
-          python -m pip install --upgrade c:\hostedtoolcache\windows\python\3.7.9\x64\lib\site-packages\virtualenv_support\Twisted-18.9.0-cp34-cp34m-win_amd64.whl
+          curl -L https://files.pythonhosted.org/packages/9b/9a/d430876d2757e9ad12dd82a1e074ecdfdd3fd1e1dfe7113a20cd4ced7f76/Twisted-18.7.0-cp27-cp27m-win_amd64.whl --output c:\hostedtoolcache\windows\python\3.7.9\x64\lib\site-packages\virtualenv_support\Twisted-18.7.0-cp27-cp27m-win_amd64.whl
+          python -m pip install --upgrade c:\hostedtoolcache\windows\python\3.7.9\x64\lib\site-packages\virtualenv_support\Twisted-18.7.0-cp27-cp27m-win_amd64.whl
       - name: run task
         env:
           TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
