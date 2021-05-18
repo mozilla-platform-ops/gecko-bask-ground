@@ -1,0 +1,14 @@
+name: CI
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - name: explore environment
+        run: |
+          git --version
+          python --version
