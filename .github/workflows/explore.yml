@@ -18,4 +18,5 @@ jobs:
       - name: find tasks
         run: |
           curl -sL https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task-group/C02r2EkOTBauTVFINs-kOQ/list --output task-group.json
-          jq '.' task-group.json
+          jq '[ .tasks[] | select(.status.workerType == "t-win10-64") ]' task-group.json > t-win10-64.json
+          jq '.' t-win10-64.json
