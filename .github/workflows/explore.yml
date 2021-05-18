@@ -11,4 +11,5 @@ jobs:
       - name: explore environment
         run: |
           git --version
+          hg --version
           python --version
