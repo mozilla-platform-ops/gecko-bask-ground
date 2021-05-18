@@ -25,8 +25,8 @@ jobs:
       #    jq -r '.task.payload.mounts[] | select(.format == \"zip\" and .directory == \"mozharness\") | .content.taskId' task.json
       - name: extract mozharness
         run: |
-          curl -L https://hg.mozilla.org/mozilla-central/raw-file/569402cc75c3437ad914fafbc174718ce7594885/taskcluster/scripts/misc/fetch-content --output fetch-content
-          curl -L https://hg.mozilla.org/mozilla-central/raw-file/569402cc75c3437ad914fafbc174718ce7594885/taskcluster/scripts/run-task --output run-task
+          curl -L https://hg.mozilla.org/try/raw-file/569402cc75c3437ad914fafbc174718ce7594885/taskcluster/scripts/misc/fetch-content --output fetch-content
+          curl -L https://hg.mozilla.org/try/raw-file/569402cc75c3437ad914fafbc174718ce7594885/taskcluster/scripts/run-task --output run-task
           curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/E8sqJ0xnRMW6j5ak3oBg1A/artifacts/public/build/mozharness.zip --output mozharness.zip
           7z x -omozharness mozharness.zip
       - name: install deps
