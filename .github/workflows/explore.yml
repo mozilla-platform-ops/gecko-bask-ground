@@ -4,6 +4,14 @@ on:
     branches:
       - main
 jobs:
+  win64-plain-opt:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - name: find task
+        run: |
+          curl -sL https://firefox-ci-tc.services.mozilla.com/api/index/v1/task/index.gecko.v2.mozilla-central.latest.firefox.win64-plain-opt --output build-task.json
+          jq '.' build-task.json
   build:
     runs-on: windows-2019
     steps:
