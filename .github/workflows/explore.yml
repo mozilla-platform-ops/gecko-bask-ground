@@ -25,11 +25,10 @@ jobs:
       #    jq -r '.task.payload.mounts[] | select(.format == \"zip\" and .directory == \"mozharness\") | .content.taskId' task.json
       - name: extract mozharness
         run: |
-          curl -L https://hg.mozilla.org/mozilla-central/raw-file/50c8711162bd0aa7931a425f1bd77e85c1f05ce5/taskcluster/scripts/misc/fetch-content --output fetch-content
-          curl -L https://hg.mozilla.org/mozilla-central/raw-file/50c8711162bd0aa7931a425f1bd77e85c1f05ce5/taskcluster/scripts/run-task --output run-task
-          curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/AflwW4nqTm2fTsFlBwZhFQ/artifacts/public/build/mozharness.zip --output mozharness.zip
+          curl -L https://hg.mozilla.org/mozilla-central/raw-file/569402cc75c3437ad914fafbc174718ce7594885/taskcluster/scripts/misc/fetch-content --output fetch-content
+          curl -L https://hg.mozilla.org/mozilla-central/raw-file/569402cc75c3437ad914fafbc174718ce7594885/taskcluster/scripts/run-task --output run-task
+          curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/E8sqJ0xnRMW6j5ak3oBg1A/artifacts/public/build/mozharness.zip --output mozharness.zip
           7z x -omozharness mozharness.zip
-          D:\\a\\gecko-bask-ground\\gecko-bask-ground\\build\\tests\\mochitest\\websocketprocessbridge\\websocketprocessbridge_requirements_3.txt
       - name: install deps
         run: |
           python -m pip cache dir
@@ -39,22 +38,19 @@ jobs:
           python -m pip install --upgrade pypiwin32
           python -m pip install --upgrade wheel
           python -m pip install --upgrade virtualenv
-          md c:\hostedtoolcache\windows\python\3.7.9\x64\lib\site-packages\virtualenv_support
-          curl -L https://download.lfd.uci.edu/pythonlibs/q4trcu4l/Twisted-20.3.0-cp37-cp37m-win_amd64.whl --output c:\hostedtoolcache\windows\python\3.7.9\x64\lib\site-packages\virtualenv_support\Twisted-20.3.0-cp37-cp37m-win_amd64.whl
-          python -m pip install --upgrade c:\hostedtoolcache\windows\python\3.7.9\x64\lib\site-packages\virtualenv_support\Twisted-20.3.0-cp37-cp37m-win_amd64.whl
-          copy c:\hostedtoolcache\windows\python\3.7.9\x64\lib\site-packages\virtualenv_support\Twisted-20.3.0-cp37-cp37m-win_amd64.whl c:\users\runneradmin\appdata\local\pip\cache\Twisted-20.3.0-cp37-cp37m-win_amd64.whl
+          python -m pip install --upgrade Twisted
       - name: run task
         env:
           TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
           PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
-          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"Lhs91AvoT-28yyuTcna2Gw\"}, {\"artifact\": \"public/build/grcov.tar.bz2\", \"extract\": true, \"task\": \"IszAfcOISyiI6WUl52BqFQ\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"R1KCnxRaToGjTtbWHHBZgA\"}]"
-          MOZ_SCM_LEVEL: 3
-          GECKO_HEAD_REV: 50c8711162bd0aa7931a425f1bd77e85c1f05ce5
+          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"Lhs91AvoT-28yyuTcna2Gw\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"R1KCnxRaToGjTtbWHHBZgA\"}]"
+          MOZ_SCM_LEVEL: 1
+          GECKO_HEAD_REV: 569402cc75c3437ad914fafbc174718ce7594885
           MOZ_AUTOMATION: 1
           MOZ_FETCHES_DIR: fetches
           SCCACHE_DISABLE: 1
-          GECKO_HEAD_REPOSITORY: https://hg.mozilla.org/mozilla-central
-          MOZHARNESS_TEST_PATHS: "{\"mochitest-devtools-chrome\": [\"devtools/client/inspector/animation/test/browser.ini\", \"devtools/client/memory/test/browser/browser.ini\", \"devtools/client/storage/test/browser.ini\", \"devtools/shared/heapsnapshot/tests/browser/browser.ini\", \"devtools/shared/webconsole/test/browser/browser.ini\", \"devtools/shared/worker/tests/browser/browser.ini\"]}"
-          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/AflwW4nqTm2fTsFlBwZhFQ/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/AflwW4nqTm2fTsFlBwZhFQ/artifacts/public/build/target.test_packages.json\"}"
+          GECKO_HEAD_REPOSITORY: https://hg.mozilla.org/try
+          MOZHARNESS_TEST_PATHS: "{\"mochitest-devtools-chrome\": [\"devtools/client/aboutdebugging/test/browser/browser.ini\", \"devtools/client/application/test/browser/browser.ini\", \"devtools/client/framework/test/browser-enable-popup-devtools-user.ini\", \"devtools/client/framework/test/browser-enable-popup-new-user.ini\", \"devtools/client/inspector/compatibility/test/browser/browser.ini\", \"devtools/client/inspector/test/browser.ini\", \"devtools/client/performance/test/browser.ini\", \"devtools/client/shared/sourceeditor/test/browser.ini\", \"devtools/server/tests/browser/browser.ini\", \"devtools/shared/commands/inspector/tests/browser.ini\", \"devtools/shared/webconsole/test/browser/browser.ini\", \"devtools/startup/tests/browser/browser.ini\"]}"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/E8sqJ0xnRMW6j5ak3oBg1A/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/E8sqJ0xnRMW6j5ak3oBg1A/artifacts/public/build/target.test_packages.json\"}"
         run: |
-          python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-devtools-chrome --code-coverage --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --enable-webrender --setpref=layers.d3d11.enable-blacklist=false --download-symbols ondemand
+          python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-devtools-chrome --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --download-symbols ondemand
