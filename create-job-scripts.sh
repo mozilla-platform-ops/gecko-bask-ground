@@ -38,15 +38,11 @@ for indexed_build in ${indexed_builds[@]}; do
 
   for worker_type in ${worker_types[@]}; do
     jq --arg workerType ${worker_type} --arg buildTaskId ${build_task_id} '[ .[] | select(.status.workerType == $workerType and (.task.dependencies as $d | $buildTaskId | IN($d[]))) ]' ${temp_dir}/indexed-build-task-group-${indexed_build}.json > ${temp_dir}/tasks-${worker_type}.json
-    echo "  - $(jq length tasks-${worker_type}.json) tasks found for worker type: ${worker_type}"
+    echo "  - $(jq length ${temp_dir}/tasks-${worker_type}.json) tasks found for worker type: ${worker_type}"
 
     for task_base64 in $(jq -r '.[] | @base64' ${temp_dir}/tasks-${worker_type}.json); do
       task_name=$(_jq ${task_base64} '.task.metadata.name')
       test_suite=$(_jq ${task_base64} '.task.extra.suite')
-      commit_sha=$(_jq ${task_base64} '.task.payload.env.GECKO_HEAD_REV')
-      command_0=$(_jq ${task_base64} '.task.payload.command[0]')
-      #mozharness_artifact_task_id=$(_jq ${task_base64}  '.task.payload.mounts[] | select(.format == "zip" and .directory == "mozharness") | .content.taskId')
-
       job=(${task_name/\// })
       workflow_path=${temp_dir}/jobs/${test_suite}-${job[0]}.yml
       if [ ! -f ${workflow_path} ]; then
@@ -67,10 +63,18 @@ for indexed_build in ${indexed_builds[@]}; do
       echo "      - uses: actions/checkout@v2" >> ${workflow_path}
       echo "      - name: mounts" >> ${workflow_path}
       echo "        run: |" >> ${workflow_path}
-      echo "          curl -L https://hg.mozilla.org/try/raw-file/${commit_sha}/taskcluster/scripts/misc/fetch-content --output fetch-content" >> ${workflow_path}
-      echo "          curl -L https://hg.mozilla.org/try/raw-file/${commit_sha}/taskcluster/scripts/run-task --output run-task" >> ${workflow_path}
-      echo "          curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/${build_task_id}/artifacts/public/build/mozharness.zip --output mozharness.zip" >> ${workflow_path}
-      echo "          7z x -omozharness mozharness.zip" >> ${workflow_path}
+      for mount_base64 in $(_jq ${task_base64} '.task.payload.mounts[]|@base64'); do
+        case $(_jq ${mount_base64} .format) in
+          zip)
+            artifact=$(_jq ${mount_base64} .content.artifact)
+            echo "          curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/$(_jq ${mount_base64} .content.taskId)/artifacts/${artifact} --output $(basename ${artifact})" >> ${workflow_path}
+            echo "          7z x -o$(_jq ${mount_base64} .directory) $(basename ${artifact})" >> ${workflow_path}
+            ;;
+          null)
+            echo "          curl -L $(_jq ${mount_base64} .content.url) --output $(_jq ${mount_base64} .file)" >> ${workflow_path}
+            ;;
+        esac
+      done
       echo "      - name: dependencies" >> ${workflow_path}
       echo "        run: |" >> ${workflow_path}
       echo "          python -m pip install --upgrade zstandard" >> ${workflow_path}
@@ -86,7 +90,11 @@ for indexed_build in ${indexed_builds[@]}; do
         fi
       done
       echo "        run: |" >> ${workflow_path}
-      echo "          ${command_0/C:\/mozilla-build\/python3\/python3.exe run-task -- c:\\\\mozilla-build\\\\python3\\\\python3.exe/python run-task -- python}" >> ${workflow_path}
+      for command in "$(_jq ${task_base64} '.task.payload.command[]')"; do
+        # lose the env specific python paths in favour of the system default python
+        tidied_command=$(echo ${command} | sed 's+C:/mozilla-build/python3/python3.exe+python+g' | sed 's+c:\\mozilla-build\\python3\\python3.exe+python+g')
+        echo "          ${tidied_command}" >> ${workflow_path}
+      done
     done
   done
 done
