@@ -51,7 +51,7 @@ for indexed_build in ${indexed_builds[@]}; do
         echo "on:" >> ${script_dir}/jobs/${test_suite}.yml
         echo "  push:" >> ${script_dir}/jobs/${test_suite}.yml
         echo "    branches:" >> ${script_dir}/jobs/${test_suite}.yml
-        echo "      - main:" >> ${script_dir}/jobs/${test_suite}.yml
+        echo "      - main" >> ${script_dir}/jobs/${test_suite}.yml
         echo "jobs:" >> ${script_dir}/jobs/${test_suite}.yml
         echo "created: ${script_dir}/jobs/${test_suite}.yml"
       else

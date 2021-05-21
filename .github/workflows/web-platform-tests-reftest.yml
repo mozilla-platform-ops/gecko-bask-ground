@@ -3,7 +3,7 @@ name: web-platform-tests-reftest
 on:
   push:
     branches:
-      - main:
+      - main
 jobs:
   test-windows10-64/debug-web-platform-tests-reftest-e10s-5:
     runs-on: windows-2019

@@ -3,7 +3,7 @@ name: web-platform-tests-crashtest
 on:
   push:
     branches:
-      - main:
+      - main
 jobs:
   test-windows10-64-qr/debug-web-platform-tests-crashtest-fis-e10s:
     runs-on: windows-2019

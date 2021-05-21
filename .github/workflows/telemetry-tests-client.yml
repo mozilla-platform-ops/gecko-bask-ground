@@ -3,7 +3,7 @@ name: telemetry-tests-client
 on:
   push:
     branches:
-      - main:
+      - main
 jobs:
   test-windows10-64/debug-telemetry-tests-client-e10s:
     runs-on: windows-2019

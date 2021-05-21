@@ -3,7 +3,7 @@ name: mochitest-browser-chrome
 on:
   push:
     branches:
-      - main:
+      - main
 jobs:
   test-windows10-64/debug-mochitest-browser-chrome-e10s-2:
     runs-on: windows-2019

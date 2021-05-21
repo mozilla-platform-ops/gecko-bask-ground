@@ -3,7 +3,7 @@ name: test-coverage
 on:
   push:
     branches:
-      - main:
+      - main
 jobs:
   test-windows10-64-ccov-qr/opt-test-coverage-e10s:
     runs-on: windows-2019
