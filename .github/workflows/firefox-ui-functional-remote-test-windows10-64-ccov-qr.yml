@@ -23,5 +23,13 @@ jobs:
         env:
           TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
           PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"Lhs91AvoT-28yyuTcna2Gw\"}, {\"artifact\": \"public/build/grcov.tar.bz2\", \"extract\": true, \"task\": \"IszAfcOISyiI6WUl52BqFQ\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"IGMuVbTvSiafcP8RW2xM-g\"}]"
+          MOZ_SCM_LEVEL: "3"
+          GECKO_HEAD_REV: "45c659bd4922fa3b4a7b602c6214f16092a31284"
+          MOZ_AUTOMATION: "1"
+          MOZ_FETCHES_DIR: "fetches"
+          SCCACHE_DISABLE: "1"
+          GECKO_HEAD_REPOSITORY: "https://hg.mozilla.org/mozilla-central"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/PECcZ0xuSOGn_C27-nlAqw/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/PECcZ0xuSOGn_C27-nlAqw/artifacts/public/build/target.test_packages.json\"}"
         run: |
           python run-task -- python -u mozharness\scripts\firefox_ui_tests\functional.py --cfg mozharness\configs\firefox_ui_tests\taskcluster_windows.py --tag remote --code-coverage --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --enable-webrender --setpref=layers.d3d11.enable-blacklist=false --download-symbols ondemand

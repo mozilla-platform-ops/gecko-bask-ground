@@ -23,6 +23,15 @@ jobs:
         env:
           TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
           PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"Lhs91AvoT-28yyuTcna2Gw\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"IGMuVbTvSiafcP8RW2xM-g\"}]"
+          MOZ_SCM_LEVEL: "3"
+          GECKO_HEAD_REV: "45c659bd4922fa3b4a7b602c6214f16092a31284"
+          MOZ_AUTOMATION: "1"
+          MOZ_FETCHES_DIR: "fetches"
+          SCCACHE_DISABLE: "1"
+          GECKO_HEAD_REPOSITORY: "https://hg.mozilla.org/mozilla-central"
+          MOZHARNESS_TEST_PATHS: "{\"mochitest-media\": [\"dom/media/autoplay/test/mochitest/mochitest.ini\", \"dom/media/mediasession/test/mochitest.ini\", \"dom/media/mediasource/test/mochitest.ini\", \"dom/media/test/mochitest.ini\", \"dom/media/webaudio/test/blink/mochitest.ini\", \"dom/media/webaudio/test/mochitest.ini\", \"dom/media/webrtc/tests/mochitests/identity/mochitest.ini\", \"dom/media/webrtc/tests/mochitests/mochitest.ini\", \"dom/media/webspeech/recognition/test/mochitest.ini\", \"dom/media/webspeech/synth/test/mochitest.ini\", \"dom/media/webspeech/synth/test/startup/mochitest.ini\", \"dom/media/webvtt/test/mochitest/mochitest.ini\"]}"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/VCHd7SmcQhWaQix7Gh4taQ/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/VCHd7SmcQhWaQix7Gh4taQ/artifacts/public/build/target.test_packages.json\"}"
         run: |
           python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --setpref=webgl.out-of-process=false --mochitest-suite=mochitest-media --setpref=media.peerconnection.mtransport_process=true --setpref=network.process.enabled=true --download-symbols true
   debug-mochitest-media-gli-e10s:
@@ -43,6 +52,15 @@ jobs:
         env:
           TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
           PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"Lhs91AvoT-28yyuTcna2Gw\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"IGMuVbTvSiafcP8RW2xM-g\"}]"
+          MOZ_SCM_LEVEL: "3"
+          GECKO_HEAD_REV: "45c659bd4922fa3b4a7b602c6214f16092a31284"
+          MOZ_AUTOMATION: "1"
+          MOZ_FETCHES_DIR: "fetches"
+          SCCACHE_DISABLE: "1"
+          GECKO_HEAD_REPOSITORY: "https://hg.mozilla.org/mozilla-central"
+          MOZHARNESS_TEST_PATHS: "{\"mochitest-media\": [\"dom/media/autoplay/test/mochitest/mochitest.ini\", \"dom/media/mediasession/test/mochitest.ini\", \"dom/media/mediasource/test/mochitest.ini\", \"dom/media/test/mochitest.ini\", \"dom/media/webaudio/test/blink/mochitest.ini\", \"dom/media/webaudio/test/mochitest.ini\", \"dom/media/webrtc/tests/mochitests/identity/mochitest.ini\", \"dom/media/webrtc/tests/mochitests/mochitest.ini\", \"dom/media/webspeech/recognition/test/mochitest.ini\", \"dom/media/webspeech/synth/test/mochitest.ini\", \"dom/media/webspeech/synth/test/startup/mochitest.ini\", \"dom/media/webvtt/test/mochitest/mochitest.ini\"]}"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/VCHd7SmcQhWaQix7Gh4taQ/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/VCHd7SmcQhWaQix7Gh4taQ/artifacts/public/build/target.test_packages.json\"}"
         run: |
           python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --setpref=webgl.out-of-process=false --mochitest-suite=mochitest-media --setpref=webgl.out-of-process=true --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --download-symbols true
   debug-mochitest-media-e10s:
@@ -63,5 +81,14 @@ jobs:
         env:
           TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
           PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"Lhs91AvoT-28yyuTcna2Gw\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"IGMuVbTvSiafcP8RW2xM-g\"}]"
+          MOZ_SCM_LEVEL: "3"
+          GECKO_HEAD_REV: "45c659bd4922fa3b4a7b602c6214f16092a31284"
+          MOZ_AUTOMATION: "1"
+          MOZ_FETCHES_DIR: "fetches"
+          SCCACHE_DISABLE: "1"
+          GECKO_HEAD_REPOSITORY: "https://hg.mozilla.org/mozilla-central"
+          MOZHARNESS_TEST_PATHS: "{\"mochitest-media\": [\"dom/media/autoplay/test/mochitest/mochitest.ini\", \"dom/media/mediasession/test/mochitest.ini\", \"dom/media/mediasource/test/mochitest.ini\", \"dom/media/test/mochitest.ini\", \"dom/media/webaudio/test/blink/mochitest.ini\", \"dom/media/webaudio/test/mochitest.ini\", \"dom/media/webrtc/tests/mochitests/identity/mochitest.ini\", \"dom/media/webrtc/tests/mochitests/mochitest.ini\", \"dom/media/webspeech/recognition/test/mochitest.ini\", \"dom/media/webspeech/synth/test/mochitest.ini\", \"dom/media/webspeech/synth/test/startup/mochitest.ini\", \"dom/media/webvtt/test/mochitest/mochitest.ini\"]}"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/VCHd7SmcQhWaQix7Gh4taQ/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/VCHd7SmcQhWaQix7Gh4taQ/artifacts/public/build/target.test_packages.json\"}"
         run: |
           python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --setpref=webgl.out-of-process=false --mochitest-suite=mochitest-media --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --download-symbols true

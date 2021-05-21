@@ -23,6 +23,15 @@ jobs:
         env:
           TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
           PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"Lhs91AvoT-28yyuTcna2Gw\"}, {\"artifact\": \"public/build/grcov.tar.bz2\", \"extract\": true, \"task\": \"IszAfcOISyiI6WUl52BqFQ\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"IGMuVbTvSiafcP8RW2xM-g\"}]"
+          MOZ_SCM_LEVEL: "3"
+          GECKO_HEAD_REV: "45c659bd4922fa3b4a7b602c6214f16092a31284"
+          MOZ_AUTOMATION: "1"
+          MOZ_FETCHES_DIR: "fetches"
+          SCCACHE_DISABLE: "1"
+          GECKO_HEAD_REPOSITORY: "https://hg.mozilla.org/mozilla-central"
+          MOZHARNESS_TEST_PATHS: "{\"mochitest-browser-chrome\": [\"toolkit/components/antitracking/test/browser/browser.ini\"]}"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/PECcZ0xuSOGn_C27-nlAqw/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/PECcZ0xuSOGn_C27-nlAqw/artifacts/public/build/target.test_packages.json\"}"
         run: |
           python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-browser-chrome --code-coverage --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --enable-webrender --setpref=layers.d3d11.enable-blacklist=false --download-symbols ondemand
   opt-mochitest-browser-chrome-e10s-9:
@@ -43,6 +52,15 @@ jobs:
         env:
           TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
           PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"Lhs91AvoT-28yyuTcna2Gw\"}, {\"artifact\": \"public/build/grcov.tar.bz2\", \"extract\": true, \"task\": \"IszAfcOISyiI6WUl52BqFQ\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"IGMuVbTvSiafcP8RW2xM-g\"}]"
+          MOZ_SCM_LEVEL: "3"
+          GECKO_HEAD_REV: "45c659bd4922fa3b4a7b602c6214f16092a31284"
+          MOZ_AUTOMATION: "1"
+          MOZ_FETCHES_DIR: "fetches"
+          SCCACHE_DISABLE: "1"
+          GECKO_HEAD_REPOSITORY: "https://hg.mozilla.org/mozilla-central"
+          MOZHARNESS_TEST_PATHS: "{\"mochitest-browser-chrome\": [\"accessible/tests/browser/e10s/browser.ini\", \"accessible/tests/browser/fission/browser.ini\", \"browser/base/content/test/about/browser.ini\", \"browser/base/content/test/caps/browser.ini\", \"browser/base/content/test/forms/browser.ini\", \"browser/base/content/test/menubar/browser.ini\", \"browser/base/content/test/popupNotifications/browser.ini\", \"browser/components/enterprisepolicies/tests/browser/managedbookmarks/browser.ini\", \"browser/components/translation/test/browser.ini\", \"dom/file/ipc/tests/browser.ini\", \"dom/ipc/tests/JSWindowActor/browser.ini\", \"editor/libeditor/tests/browser.ini\", \"testing/mochitest/tests/browser/browser.ini\", \"toolkit/components/aboutconfig/test/browser/browser.ini\", \"toolkit/components/forgetaboutsite/test/browser/browser.ini\", \"toolkit/components/passwordmgr/test/browser/browser.ini\", \"toolkit/components/remotepagemanager/tests/browser/browser.ini\", \"toolkit/crashreporter/test/browser/browser.ini\"]}"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/PECcZ0xuSOGn_C27-nlAqw/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/PECcZ0xuSOGn_C27-nlAqw/artifacts/public/build/target.test_packages.json\"}"
         run: |
           python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-browser-chrome --code-coverage --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --enable-webrender --setpref=layers.d3d11.enable-blacklist=false --download-symbols ondemand
   opt-mochitest-browser-chrome-e10s-6:
@@ -63,6 +81,15 @@ jobs:
         env:
           TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
           PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"Lhs91AvoT-28yyuTcna2Gw\"}, {\"artifact\": \"public/build/grcov.tar.bz2\", \"extract\": true, \"task\": \"IszAfcOISyiI6WUl52BqFQ\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"IGMuVbTvSiafcP8RW2xM-g\"}]"
+          MOZ_SCM_LEVEL: "3"
+          GECKO_HEAD_REV: "45c659bd4922fa3b4a7b602c6214f16092a31284"
+          MOZ_AUTOMATION: "1"
+          MOZ_FETCHES_DIR: "fetches"
+          SCCACHE_DISABLE: "1"
+          GECKO_HEAD_REPOSITORY: "https://hg.mozilla.org/mozilla-central"
+          MOZHARNESS_TEST_PATHS: "{\"mochitest-browser-chrome\": [\"browser/base/content/test/siteIdentity/browser.ini\", \"browser/base/content/test/tabdialogs/browser.ini\", \"browser/components/customizableui/test/browser.ini\", \"browser/components/downloads/test/browser/browser.ini\", \"browser/components/ion/test/browser/browser.ini\", \"browser/components/urlbar/tests/ext/browser/browser.ini\", \"docshell/test/navigation/browser.ini\", \"dom/base/test/browser.ini\", \"dom/ipc/tests/browser.ini\", \"dom/media/mediacontrol/tests/browser/browser.ini\", \"dom/reporting/tests/browser.ini\", \"dom/security/test/cors/browser.ini\", \"dom/serviceworkers/test/browser.ini\", \"dom/url/tests/browser.ini\", \"security/manager/ssl/tests/mochitest/browser/browser.ini\", \"security/sandbox/test/browser.ini\", \"toolkit/components/viewsource/test/browser/browser.ini\", \"toolkit/mozapps/update/tests/browser/manual_app_update_only/browser.ini\"]}"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/PECcZ0xuSOGn_C27-nlAqw/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/PECcZ0xuSOGn_C27-nlAqw/artifacts/public/build/target.test_packages.json\"}"
         run: |
           python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-browser-chrome --code-coverage --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --enable-webrender --setpref=layers.d3d11.enable-blacklist=false --download-symbols ondemand
   opt-mochitest-browser-chrome-e10s-7:
@@ -83,6 +110,15 @@ jobs:
         env:
           TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
           PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"Lhs91AvoT-28yyuTcna2Gw\"}, {\"artifact\": \"public/build/grcov.tar.bz2\", \"extract\": true, \"task\": \"IszAfcOISyiI6WUl52BqFQ\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"IGMuVbTvSiafcP8RW2xM-g\"}]"
+          MOZ_SCM_LEVEL: "3"
+          GECKO_HEAD_REV: "45c659bd4922fa3b4a7b602c6214f16092a31284"
+          MOZ_AUTOMATION: "1"
+          MOZ_FETCHES_DIR: "fetches"
+          SCCACHE_DISABLE: "1"
+          GECKO_HEAD_REPOSITORY: "https://hg.mozilla.org/mozilla-central"
+          MOZHARNESS_TEST_PATHS: "{\"mochitest-browser-chrome\": [\"accessible/tests/browser/general/browser.ini\", \"browser/base/content/test/gesture/browser.ini\", \"browser/base/content/test/historySwipeAnimation/browser.ini\", \"browser/base/content/test/outOfProcess/browser.ini\", \"browser/components/attribution/test/browser/browser.ini\", \"browser/components/protections/test/browser/browser.ini\", \"browser/components/resistfingerprinting/test/browser/browser.ini\", \"browser/components/urlbar/tests/browser-proton/browser.ini\", \"dom/cache/test/browser/browser.ini\", \"dom/html/test/browser.ini\", \"dom/media/mediasession/test/browser.ini\", \"image/test/browser/browser.ini\", \"js/xpconnect/tests/browser/browser.ini\", \"toolkit/components/extensions/test/browser/browser-serviceworker.ini\", \"toolkit/components/extensions/test/browser/browser.ini\", \"toolkit/components/pictureinpicture/tests/browser.ini\", \"toolkit/components/printing/tests/browser.ini\", \"toolkit/content/tests/browser/browser.ini\", \"uriloader/exthandler/tests/mochitest/browser.ini\"]}"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/PECcZ0xuSOGn_C27-nlAqw/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/PECcZ0xuSOGn_C27-nlAqw/artifacts/public/build/target.test_packages.json\"}"
         run: |
           python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-browser-chrome --code-coverage --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --enable-webrender --setpref=layers.d3d11.enable-blacklist=false --download-symbols ondemand
   opt-mochitest-browser-chrome-e10s-3:
@@ -103,6 +139,15 @@ jobs:
         env:
           TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
           PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"Lhs91AvoT-28yyuTcna2Gw\"}, {\"artifact\": \"public/build/grcov.tar.bz2\", \"extract\": true, \"task\": \"IszAfcOISyiI6WUl52BqFQ\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"IGMuVbTvSiafcP8RW2xM-g\"}]"
+          MOZ_SCM_LEVEL: "3"
+          GECKO_HEAD_REV: "45c659bd4922fa3b4a7b602c6214f16092a31284"
+          MOZ_AUTOMATION: "1"
+          MOZ_FETCHES_DIR: "fetches"
+          SCCACHE_DISABLE: "1"
+          GECKO_HEAD_REPOSITORY: "https://hg.mozilla.org/mozilla-central"
+          MOZHARNESS_TEST_PATHS: "{\"mochitest-browser-chrome\": [\"browser/base/content/test/pageActions-proton/browser.ini\", \"browser/base/content/test/pageActions/browser.ini\", \"browser/base/content/test/pageinfo/browser.ini\", \"browser/base/content/test/sync/browser.ini\", \"browser/components/aboutlogins/tests/browser/browser.ini\", \"browser/components/enterprisepolicies/tests/browser/disable_fxscreenshots/browser.ini\", \"browser/components/tests/browser/whats_new_page/browser.ini\", \"browser/extensions/webcompat/tests/browser/browser.ini\", \"browser/modules/test/browser/browser.ini\", \"caps/tests/mochitest/browser.ini\", \"docshell/test/browser/browser.ini\", \"dom/notification/test/browser/browser.ini\", \"dom/security/test/general/browser.ini\", \"toolkit/components/messaging-system/schemas/TriggerActionSchemas/test/browser/browser.ini\", \"toolkit/components/nimbus/test/browser/browser.ini\", \"toolkit/components/satchel/test/browser/browser.ini\", \"toolkit/components/windowwatcher/test/browser.ini\", \"widget/tests/browser/browser.ini\"]}"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/PECcZ0xuSOGn_C27-nlAqw/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/PECcZ0xuSOGn_C27-nlAqw/artifacts/public/build/target.test_packages.json\"}"
         run: |
           python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-browser-chrome --code-coverage --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --enable-webrender --setpref=layers.d3d11.enable-blacklist=false --download-symbols ondemand
   opt-mochitest-browser-chrome-e10s-8:
@@ -123,6 +168,15 @@ jobs:
         env:
           TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
           PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"Lhs91AvoT-28yyuTcna2Gw\"}, {\"artifact\": \"public/build/grcov.tar.bz2\", \"extract\": true, \"task\": \"IszAfcOISyiI6WUl52BqFQ\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"IGMuVbTvSiafcP8RW2xM-g\"}]"
+          MOZ_SCM_LEVEL: "3"
+          GECKO_HEAD_REV: "45c659bd4922fa3b4a7b602c6214f16092a31284"
+          MOZ_AUTOMATION: "1"
+          MOZ_FETCHES_DIR: "fetches"
+          SCCACHE_DISABLE: "1"
+          GECKO_HEAD_REPOSITORY: "https://hg.mozilla.org/mozilla-central"
+          MOZHARNESS_TEST_PATHS: "{\"mochitest-browser-chrome\": [\"browser/base/content/test/alerts/browser.ini\", \"browser/base/content/test/keyboard/browser.ini\", \"browser/base/content/test/protectionsUI/browser.ini\", \"browser/base/content/test/webextensions/browser.ini\", \"browser/components/enterprisepolicies/tests/browser/browser.ini\", \"browser/components/enterprisepolicies/tests/browser/disable_developer_tools/browser.ini\", \"browser/components/enterprisepolicies/tests/browser/show_home_button/browser.ini\", \"browser/components/places/tests/browser/browser.ini\", \"browser/components/uitour/test/browser.ini\", \"dom/broadcastchannel/tests/browser.ini\", \"dom/fetch/tests/browser.ini\", \"dom/xhr/tests/browser.ini\", \"toolkit/components/backgroundtasks/tests/browser/browser.ini\", \"toolkit/components/httpsonlyerror/tests/browser/browser.ini\", \"toolkit/components/mozprotocol/tests/browser.ini\", \"toolkit/components/places/tests/browser/browser.ini\", \"toolkit/components/startup/tests/browser/browser.ini\", \"toolkit/components/telemetry/tests/browser/browser.ini\"]}"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/PECcZ0xuSOGn_C27-nlAqw/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/PECcZ0xuSOGn_C27-nlAqw/artifacts/public/build/target.test_packages.json\"}"
         run: |
           python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-browser-chrome --code-coverage --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --enable-webrender --setpref=layers.d3d11.enable-blacklist=false --download-symbols ondemand
   opt-mochitest-browser-chrome-e10s-10:
@@ -143,6 +197,15 @@ jobs:
         env:
           TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
           PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"Lhs91AvoT-28yyuTcna2Gw\"}, {\"artifact\": \"public/build/grcov.tar.bz2\", \"extract\": true, \"task\": \"IszAfcOISyiI6WUl52BqFQ\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"IGMuVbTvSiafcP8RW2xM-g\"}]"
+          MOZ_SCM_LEVEL: "3"
+          GECKO_HEAD_REV: "45c659bd4922fa3b4a7b602c6214f16092a31284"
+          MOZ_AUTOMATION: "1"
+          MOZ_FETCHES_DIR: "fetches"
+          SCCACHE_DISABLE: "1"
+          GECKO_HEAD_REPOSITORY: "https://hg.mozilla.org/mozilla-central"
+          MOZHARNESS_TEST_PATHS: "{\"mochitest-browser-chrome\": [\"accessible/tests/browser/tree/browser.ini\", \"browser/base/content/test/contextMenu/browser.ini\", \"browser/base/content/test/fullscreen/browser.ini\", \"browser/base/content/test/metaTags/browser.ini\", \"browser/base/content/test/referrer/browser.ini\", \"browser/base/content/test/webrtc/gracePeriod/browser.ini\", \"browser/components/enterprisepolicies/tests/browser/disable_app_update/browser.ini\", \"browser/components/enterprisepolicies/tests/browser/disable_forget_button/browser.ini\", \"browser/components/pocket/test/browser.ini\", \"browser/components/search/test/browser/browser.ini\", \"browser/components/tests/browser/browser.ini\", \"dom/media/test/browser/browser.ini\", \"layout/base/tests/browser.ini\", \"toolkit/components/certviewer/tests/browser/browser.ini\", \"toolkit/components/narrate/test/browser.ini\", \"toolkit/components/remotebrowserutils/tests/browser/browser.ini\", \"toolkit/components/utils/test/browser/browser.ini\", \"toolkit/mozapps/extensions/test/browser/browser.ini\"]}"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/PECcZ0xuSOGn_C27-nlAqw/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/PECcZ0xuSOGn_C27-nlAqw/artifacts/public/build/target.test_packages.json\"}"
         run: |
           python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-browser-chrome --code-coverage --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --enable-webrender --setpref=layers.d3d11.enable-blacklist=false --download-symbols ondemand
   opt-mochitest-browser-chrome-e10s-12:
@@ -163,6 +226,15 @@ jobs:
         env:
           TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
           PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"Lhs91AvoT-28yyuTcna2Gw\"}, {\"artifact\": \"public/build/grcov.tar.bz2\", \"extract\": true, \"task\": \"IszAfcOISyiI6WUl52BqFQ\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"IGMuVbTvSiafcP8RW2xM-g\"}]"
+          MOZ_SCM_LEVEL: "3"
+          GECKO_HEAD_REV: "45c659bd4922fa3b4a7b602c6214f16092a31284"
+          MOZ_AUTOMATION: "1"
+          MOZ_FETCHES_DIR: "fetches"
+          SCCACHE_DISABLE: "1"
+          GECKO_HEAD_REPOSITORY: "https://hg.mozilla.org/mozilla-central"
+          MOZHARNESS_TEST_PATHS: "{\"mochitest-browser-chrome\": [\"accessible/tests/browser/hittest/browser.ini\", \"browser/base/content/test/favicons/browser.ini\", \"browser/base/content/test/performance/io/browser.ini\", \"browser/base/content/test/tabMediaIndicator/browser.ini\", \"browser/base/content/test/webrtc/legacyIndicator/browser.ini\", \"browser/components/safebrowsing/content/test/browser.ini\", \"browser/components/sessionstore/test/browser.ini\", \"browser/components/shell/test/browser.ini\", \"browser/extensions/formautofill/test/browser/focus-leak/browser.ini\", \"dom/media/doctor/test/browser/browser.ini\", \"dom/webauthn/tests/browser/browser.ini\", \"layout/style/test/browser.ini\", \"toolkit/components/aboutperformance/tests/browser/browser.ini\", \"toolkit/components/processtools/tests/browser/browser.ini\", \"toolkit/components/thumbnails/test/browser.ini\", \"toolkit/modules/tests/browser/browser.ini\", \"toolkit/mozapps/downloads/tests/browser/browser.ini\"]}"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/PECcZ0xuSOGn_C27-nlAqw/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/PECcZ0xuSOGn_C27-nlAqw/artifacts/public/build/target.test_packages.json\"}"
         run: |
           python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-browser-chrome --code-coverage --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --enable-webrender --setpref=layers.d3d11.enable-blacklist=false --download-symbols ondemand
   opt-mochitest-browser-chrome-e10s-11:
@@ -183,6 +255,15 @@ jobs:
         env:
           TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
           PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"Lhs91AvoT-28yyuTcna2Gw\"}, {\"artifact\": \"public/build/grcov.tar.bz2\", \"extract\": true, \"task\": \"IszAfcOISyiI6WUl52BqFQ\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"IGMuVbTvSiafcP8RW2xM-g\"}]"
+          MOZ_SCM_LEVEL: "3"
+          GECKO_HEAD_REV: "45c659bd4922fa3b4a7b602c6214f16092a31284"
+          MOZ_AUTOMATION: "1"
+          MOZ_FETCHES_DIR: "fetches"
+          SCCACHE_DISABLE: "1"
+          GECKO_HEAD_REPOSITORY: "https://hg.mozilla.org/mozilla-central"
+          MOZHARNESS_TEST_PATHS: "{\"mochitest-browser-chrome\": [\"accessible/tests/browser/telemetry/browser.ini\", \"browser/base/content/test/permissions/browser.ini\", \"browser/base/content/test/zoom/browser.ini\", \"browser/components/doh/test/browser/browser.ini\", \"browser/components/enterprisepolicies/tests/browser/disable_default_bookmarks/browser.ini\", \"browser/components/originattributes/test/browser/browser.ini\", \"browser/extensions/formautofill/test/browser/browser.ini\", \"dom/manifest/test/browser.ini\", \"dom/plugins/test/mochitest/browser.ini\", \"dom/security/test/https-first/browser.ini\", \"dom/tests/browser/browser.ini\", \"dom/u2f/tests/browser/browser.ini\", \"extensions/permissions/test/browser.ini\", \"parser/htmlparser/tests/mochitest/browser.ini\", \"services/fxaccounts/tests/browser/browser.ini\", \"toolkit/components/normandy/test/browser/browser.ini\", \"toolkit/components/reader/test/browser.ini\"]}"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/PECcZ0xuSOGn_C27-nlAqw/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/PECcZ0xuSOGn_C27-nlAqw/artifacts/public/build/target.test_packages.json\"}"
         run: |
           python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-browser-chrome --code-coverage --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --enable-webrender --setpref=layers.d3d11.enable-blacklist=false --download-symbols ondemand
   opt-mochitest-browser-chrome-e10s-1:
@@ -203,6 +284,15 @@ jobs:
         env:
           TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
           PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"Lhs91AvoT-28yyuTcna2Gw\"}, {\"artifact\": \"public/build/grcov.tar.bz2\", \"extract\": true, \"task\": \"IszAfcOISyiI6WUl52BqFQ\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"IGMuVbTvSiafcP8RW2xM-g\"}]"
+          MOZ_SCM_LEVEL: "3"
+          GECKO_HEAD_REV: "45c659bd4922fa3b4a7b602c6214f16092a31284"
+          MOZ_AUTOMATION: "1"
+          MOZ_FETCHES_DIR: "fetches"
+          SCCACHE_DISABLE: "1"
+          GECKO_HEAD_REPOSITORY: "https://hg.mozilla.org/mozilla-central"
+          MOZHARNESS_TEST_PATHS: "{\"mochitest-browser-chrome\": [\"accessible/tests/browser/bounds/browser.ini\", \"accessible/tests/browser/events/browser.ini\", \"accessible/tests/browser/mac/browser.ini\", \"accessible/tests/browser/scroll/browser.ini\", \"browser/base/content/test/captivePortal/browser.ini\", \"browser/base/content/test/general/browser.ini\", \"browser/base/content/test/pageStyle/browser.ini\", \"browser/base/content/test/performance/hidpi/browser.ini\", \"browser/base/content/test/performance/lowdpi/browser.ini\", \"browser/base/content/test/sidebar/browser.ini\", \"browser/base/content/test/startup/browser.ini\", \"browser/base/content/test/tabPrompts/browser.ini\", \"browser/base/content/test/tabcrashed/browser.ini\", \"browser/base/content/test/touch/browser.ini\", \"browser/base/content/test/webrtc/browser.ini\", \"browser/components/newtab/test/browser/browser.ini\", \"browser/components/payments/test/browser/browser.ini\", \"browser/components/protocolhandler/test/browser/browser.ini\", \"browser/components/touchbar/tests/browser/browser.ini\", \"browser/extensions/formautofill/test/browser/creditCard/browser.ini\", \"browser/extensions/report-site-issue/test/browser/browser.ini\", \"browser/modules/test/browser/formValidation/browser.ini\", \"dom/crypto/test/browser/browser.ini\", \"dom/indexedDB/test/browser.ini\", \"dom/ipc/tests/JSProcessActor/browser.ini\", \"dom/localstorage/test/browser.ini\", \"dom/media/autoplay/test/browser/browser.ini\", \"dom/payments/test/browser.ini\", \"dom/quota/test/browser/browser.ini\", \"dom/serviceworkers/test/isolated/multi-e10s-update/browser.ini\", \"layout/tools/layout-debug/tests/browser/browser.ini\", \"netwerk/cookie/test/browser/browser.ini\", \"testing/mochitest/baselinecoverage/browser_chrome/browser.ini\", \"testing/modules/tests/browser/browser.ini\", \"toolkit/components/alerts/test/browser.ini\", \"toolkit/components/pdfjs/test/browser.ini\", \"toolkit/mozapps/extensions/test/xpinstall/browser.ini\", \"toolkit/xre/test/browser.ini\"]}"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/PECcZ0xuSOGn_C27-nlAqw/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/PECcZ0xuSOGn_C27-nlAqw/artifacts/public/build/target.test_packages.json\"}"
         run: |
           python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-browser-chrome --code-coverage --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --enable-webrender --setpref=layers.d3d11.enable-blacklist=false --download-symbols ondemand
   opt-mochitest-browser-chrome-e10s-5:
@@ -223,6 +313,15 @@ jobs:
         env:
           TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
           PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"Lhs91AvoT-28yyuTcna2Gw\"}, {\"artifact\": \"public/build/grcov.tar.bz2\", \"extract\": true, \"task\": \"IszAfcOISyiI6WUl52BqFQ\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"IGMuVbTvSiafcP8RW2xM-g\"}]"
+          MOZ_SCM_LEVEL: "3"
+          GECKO_HEAD_REV: "45c659bd4922fa3b4a7b602c6214f16092a31284"
+          MOZ_AUTOMATION: "1"
+          MOZ_FETCHES_DIR: "fetches"
+          SCCACHE_DISABLE: "1"
+          GECKO_HEAD_REPOSITORY: "https://hg.mozilla.org/mozilla-central"
+          MOZHARNESS_TEST_PATHS: "{\"mochitest-browser-chrome\": [\"browser/base/content/test/performance/browser.ini\", \"browser/base/content/test/tabs/browser.ini\", \"browser/components/enterprisepolicies/tests/browser/homepage_button/browser.ini\", \"browser/components/extensions/test/browser/browser-private.ini\", \"browser/components/preferences/tests/siteData/browser.ini\", \"browser/components/privatebrowsing/test/browser/browser.ini\", \"browser/components/urlbar/tests/browser-tips/browser.ini\", \"browser/extensions/screenshots/test/browser/browser.ini\", \"dom/credentialmanagement/tests/browser/browser.ini\", \"dom/events/test/browser.ini\", \"dom/l10n/tests/mochitest/browser.ini\", \"dom/security/test/https-only/browser.ini\", \"dom/security/test/mixedcontentblocker/browser.ini\", \"netwerk/test/browser/browser.ini\", \"toolkit/components/aboutprocesses/tests/browser/browser.ini\", \"toolkit/components/tooltiptext/tests/browser.ini\", \"toolkit/mozapps/update/tests/browser/browser.bits.ini\"]}"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/PECcZ0xuSOGn_C27-nlAqw/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/PECcZ0xuSOGn_C27-nlAqw/artifacts/public/build/target.test_packages.json\"}"
         run: |
           python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-browser-chrome --code-coverage --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --enable-webrender --setpref=layers.d3d11.enable-blacklist=false --download-symbols ondemand
   opt-mochitest-browser-chrome-e10s-2:
@@ -243,6 +342,15 @@ jobs:
         env:
           TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
           PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"Lhs91AvoT-28yyuTcna2Gw\"}, {\"artifact\": \"public/build/grcov.tar.bz2\", \"extract\": true, \"task\": \"IszAfcOISyiI6WUl52BqFQ\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"IGMuVbTvSiafcP8RW2xM-g\"}]"
+          MOZ_SCM_LEVEL: "3"
+          GECKO_HEAD_REV: "45c659bd4922fa3b4a7b602c6214f16092a31284"
+          MOZ_AUTOMATION: "1"
+          MOZ_FETCHES_DIR: "fetches"
+          SCCACHE_DISABLE: "1"
+          GECKO_HEAD_REPOSITORY: "https://hg.mozilla.org/mozilla-central"
+          MOZHARNESS_TEST_PATHS: "{\"mochitest-browser-chrome\": [\"accessible/tests/browser/browser.ini\", \"browser/base/content/test/backforward/browser.ini\", \"browser/components/contextualidentity/test/browser/browser.ini\", \"browser/components/newtab/test/browser/abouthomecache/browser.ini\", \"browser/components/pocket/test/unit/browser.ini\", \"browser/components/preferences/tests/browser.ini\", \"browser/components/search/test/browser/google_codes/browser.ini\", \"dom/security/test/csp/browser.ini\", \"dom/tests/browser/perfmetrics/browser.ini\", \"gfx/layers/apz/test/mochitest/browser.ini\", \"gfx/tests/browser/browser.ini\", \"layout/xul/test/browser.ini\", \"toolkit/components/cleardata/tests/browser/browser.ini\", \"toolkit/components/contentprefs/tests/browser/browser.ini\", \"toolkit/components/messaging-system/schemas/SpecialMessageActionSchemas/test/browser/browser.ini\", \"toolkit/mozapps/update/tests/browser/browser.ini\"]}"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/PECcZ0xuSOGn_C27-nlAqw/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/PECcZ0xuSOGn_C27-nlAqw/artifacts/public/build/target.test_packages.json\"}"
         run: |
           python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-browser-chrome --code-coverage --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --enable-webrender --setpref=layers.d3d11.enable-blacklist=false --download-symbols ondemand
   opt-mochitest-browser-chrome-e10s-4:
@@ -263,6 +371,15 @@ jobs:
         env:
           TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
           PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"Lhs91AvoT-28yyuTcna2Gw\"}, {\"artifact\": \"public/build/grcov.tar.bz2\", \"extract\": true, \"task\": \"IszAfcOISyiI6WUl52BqFQ\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"IGMuVbTvSiafcP8RW2xM-g\"}]"
+          MOZ_SCM_LEVEL: "3"
+          GECKO_HEAD_REV: "45c659bd4922fa3b4a7b602c6214f16092a31284"
+          MOZ_AUTOMATION: "1"
+          MOZ_FETCHES_DIR: "fetches"
+          SCCACHE_DISABLE: "1"
+          GECKO_HEAD_REPOSITORY: "https://hg.mozilla.org/mozilla-central"
+          MOZHARNESS_TEST_PATHS: "{\"mochitest-browser-chrome\": [\"accessible/tests/browser/states/browser.ini\", \"browser/base/content/test/notificationbox/browser.ini\", \"browser/base/content/test/plugins/browser.ini\", \"browser/base/content/test/popups/browser.ini\", \"browser/base/content/test/sanitize/browser.ini\", \"browser/base/content/test/static/browser.ini\", \"browser/base/content/test/statuspanel/browser.ini\", \"browser/components/enterprisepolicies/tests/browser/hardware_acceleration/browser.ini\", \"browser/components/syncedtabs/test/browser/browser.ini\", \"browser/components/urlbar/tests/browser-updateResults/browser.ini\", \"browser/components/urlbar/tests/browser/browser.ini\", \"dom/workers/test/browser.ini\", \"startupcache/test/browser/browser.ini\", \"toolkit/components/enterprisepolicies/tests/browser/browser.ini\", \"toolkit/components/windowcreator/test/browser.ini\", \"tools/profiler/tests/browser/browser.ini\"]}"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/PECcZ0xuSOGn_C27-nlAqw/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/PECcZ0xuSOGn_C27-nlAqw/artifacts/public/build/target.test_packages.json\"}"
         run: |
           python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-browser-chrome --code-coverage --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --enable-webrender --setpref=layers.d3d11.enable-blacklist=false --download-symbols ondemand
   opt-mochitest-browser-chrome-e10s-13:
@@ -283,5 +400,14 @@ jobs:
         env:
           TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
           PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"Lhs91AvoT-28yyuTcna2Gw\"}, {\"artifact\": \"public/build/grcov.tar.bz2\", \"extract\": true, \"task\": \"IszAfcOISyiI6WUl52BqFQ\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"IGMuVbTvSiafcP8RW2xM-g\"}]"
+          MOZ_SCM_LEVEL: "3"
+          GECKO_HEAD_REV: "45c659bd4922fa3b4a7b602c6214f16092a31284"
+          MOZ_AUTOMATION: "1"
+          MOZ_FETCHES_DIR: "fetches"
+          SCCACHE_DISABLE: "1"
+          GECKO_HEAD_REPOSITORY: "https://hg.mozilla.org/mozilla-central"
+          MOZHARNESS_TEST_PATHS: "{\"mochitest-browser-chrome\": [\"browser/components/extensions/test/browser/browser.ini\"]}"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/PECcZ0xuSOGn_C27-nlAqw/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/PECcZ0xuSOGn_C27-nlAqw/artifacts/public/build/target.test_packages.json\"}"
         run: |
           python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-browser-chrome --code-coverage --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --enable-webrender --setpref=layers.d3d11.enable-blacklist=false --download-symbols ondemand
