@@ -1,11 +1,11 @@
 ---
-name: web-platform-tests-crashtest
+name: web-platform-tests-crashtest (test-windows10-64-qr)
 on:
   push:
     branches:
       - main
 jobs:
-  test-windows10-64-qr/debug-web-platform-tests-crashtest-fis-e10s:
+  debug-web-platform-tests-crashtest-fis-e10s:
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@v2
@@ -15,17 +15,17 @@ jobs:
           curl -L https://hg.mozilla.org/try/raw-file/45c659bd4922fa3b4a7b602c6214f16092a31284/taskcluster/scripts/run-task --output run-task
           curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/VCHd7SmcQhWaQix7Gh4taQ/artifacts/public/build/mozharness.zip --output mozharness.zip
           7z x -omozharness mozharness.zip
-      - name: python deps
+      - name: dependencies
         run: |
           python -m pip install --upgrade zstandard
           python -m pip install --upgrade certifi
-      - name: task
+      - name: test
         env:
           TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
           PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
         run: |
           python run-task -- python -u mozharness\scripts\web_platform_tests.py --cfg mozharness\configs\web_platform_tests\prod_config_windows_taskcluster.py --test-type=crashtest --setpref=fission.autostart=true --setpref=dom.serviceWorkers.parent_intercept=true --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --enable-webrender --setpref=layers.d3d11.enable-blacklist=false --download-symbols true
-  test-windows10-64-qr/debug-web-platform-tests-crashtest-e10s:
+  debug-web-platform-tests-crashtest-e10s:
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@v2
@@ -35,17 +35,17 @@ jobs:
           curl -L https://hg.mozilla.org/try/raw-file/45c659bd4922fa3b4a7b602c6214f16092a31284/taskcluster/scripts/run-task --output run-task
           curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/VCHd7SmcQhWaQix7Gh4taQ/artifacts/public/build/mozharness.zip --output mozharness.zip
           7z x -omozharness mozharness.zip
-      - name: python deps
+      - name: dependencies
         run: |
           python -m pip install --upgrade zstandard
           python -m pip install --upgrade certifi
-      - name: task
+      - name: test
         env:
           TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
           PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
         run: |
           python run-task -- python -u mozharness\scripts\web_platform_tests.py --cfg mozharness\configs\web_platform_tests\prod_config_windows_taskcluster.py --test-type=crashtest --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --enable-webrender --setpref=layers.d3d11.enable-blacklist=false --download-symbols true
-  test-windows10-64/debug-web-platform-tests-crashtest-e10s:
+  debug-web-platform-tests-crashtest-swr-e10s:
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@v2
@@ -55,53 +55,13 @@ jobs:
           curl -L https://hg.mozilla.org/try/raw-file/45c659bd4922fa3b4a7b602c6214f16092a31284/taskcluster/scripts/run-task --output run-task
           curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/VCHd7SmcQhWaQix7Gh4taQ/artifacts/public/build/mozharness.zip --output mozharness.zip
           7z x -omozharness mozharness.zip
-      - name: python deps
+      - name: dependencies
         run: |
           python -m pip install --upgrade zstandard
           python -m pip install --upgrade certifi
-      - name: task
-        env:
-          TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
-          PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
-        run: |
-          python run-task -- python -u mozharness\scripts\web_platform_tests.py --cfg mozharness\configs\web_platform_tests\prod_config_windows_taskcluster.py --test-type=crashtest --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --download-symbols true
-  test-windows10-64-qr/debug-web-platform-tests-crashtest-swr-e10s:
-    runs-on: windows-2019
-    steps:
-      - uses: actions/checkout@v2
-      - name: mounts
-        run: |
-          curl -L https://hg.mozilla.org/try/raw-file/45c659bd4922fa3b4a7b602c6214f16092a31284/taskcluster/scripts/misc/fetch-content --output fetch-content
-          curl -L https://hg.mozilla.org/try/raw-file/45c659bd4922fa3b4a7b602c6214f16092a31284/taskcluster/scripts/run-task --output run-task
-          curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/VCHd7SmcQhWaQix7Gh4taQ/artifacts/public/build/mozharness.zip --output mozharness.zip
-          7z x -omozharness mozharness.zip
-      - name: python deps
-        run: |
-          python -m pip install --upgrade zstandard
-          python -m pip install --upgrade certifi
-      - name: task
+      - name: test
         env:
           TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
           PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
         run: |
           python run-task -- python -u mozharness\scripts\web_platform_tests.py --cfg mozharness\configs\web_platform_tests\prod_config_windows_taskcluster.py --test-type=crashtest --setpref=gfx.webrender.software=true --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --enable-webrender --setpref=layers.d3d11.enable-blacklist=false --download-symbols true
-  test-windows10-64-ccov-qr/opt-web-platform-tests-crashtest-e10s:
-    runs-on: windows-2019
-    steps:
-      - uses: actions/checkout@v2
-      - name: mounts
-        run: |
-          curl -L https://hg.mozilla.org/try/raw-file/45c659bd4922fa3b4a7b602c6214f16092a31284/taskcluster/scripts/misc/fetch-content --output fetch-content
-          curl -L https://hg.mozilla.org/try/raw-file/45c659bd4922fa3b4a7b602c6214f16092a31284/taskcluster/scripts/run-task --output run-task
-          curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/PECcZ0xuSOGn_C27-nlAqw/artifacts/public/build/mozharness.zip --output mozharness.zip
-          7z x -omozharness mozharness.zip
-      - name: python deps
-        run: |
-          python -m pip install --upgrade zstandard
-          python -m pip install --upgrade certifi
-      - name: task
-        env:
-          TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
-          PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
-        run: |
-          python run-task -- python -u mozharness\scripts\web_platform_tests.py --cfg mozharness\configs\web_platform_tests\prod_config_windows_taskcluster.py --test-type=crashtest --code-coverage --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --enable-webrender --setpref=layers.d3d11.enable-blacklist=false --download-symbols ondemand

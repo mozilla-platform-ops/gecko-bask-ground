@@ -1,0 +1,27 @@
+---
+name: telemetry-tests-client (test-windows10-64-asan)
+on:
+  push:
+    branches:
+      - main
+jobs:
+  opt-telemetry-tests-client-e10s:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - name: mounts
+        run: |
+          curl -L https://hg.mozilla.org/try/raw-file/45c659bd4922fa3b4a7b602c6214f16092a31284/taskcluster/scripts/misc/fetch-content --output fetch-content
+          curl -L https://hg.mozilla.org/try/raw-file/45c659bd4922fa3b4a7b602c6214f16092a31284/taskcluster/scripts/run-task --output run-task
+          curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/SfZXE6A8TvGPBHSP1RQlyw/artifacts/public/build/mozharness.zip --output mozharness.zip
+          7z x -omozharness mozharness.zip
+      - name: dependencies
+        run: |
+          python -m pip install --upgrade zstandard
+          python -m pip install --upgrade certifi
+      - name: test
+        env:
+          TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
+          PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+        run: |
+          python run-task -- python -u mozharness\scripts\telemetry\telemetry_client.py --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --download-symbols ondemand

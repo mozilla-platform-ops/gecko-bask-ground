@@ -1,0 +1,167 @@
+---
+name: mochitest-devtools-chrome (test-windows10-64-asan)
+on:
+  push:
+    branches:
+      - main
+jobs:
+  opt-mochitest-devtools-chrome-e10s-8:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - name: mounts
+        run: |
+          curl -L https://hg.mozilla.org/try/raw-file/45c659bd4922fa3b4a7b602c6214f16092a31284/taskcluster/scripts/misc/fetch-content --output fetch-content
+          curl -L https://hg.mozilla.org/try/raw-file/45c659bd4922fa3b4a7b602c6214f16092a31284/taskcluster/scripts/run-task --output run-task
+          curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/SfZXE6A8TvGPBHSP1RQlyw/artifacts/public/build/mozharness.zip --output mozharness.zip
+          7z x -omozharness mozharness.zip
+      - name: dependencies
+        run: |
+          python -m pip install --upgrade zstandard
+          python -m pip install --upgrade certifi
+      - name: test
+        env:
+          TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
+          PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+        run: |
+          python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-devtools-chrome --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --download-symbols ondemand
+  opt-mochitest-devtools-chrome-e10s-5:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - name: mounts
+        run: |
+          curl -L https://hg.mozilla.org/try/raw-file/45c659bd4922fa3b4a7b602c6214f16092a31284/taskcluster/scripts/misc/fetch-content --output fetch-content
+          curl -L https://hg.mozilla.org/try/raw-file/45c659bd4922fa3b4a7b602c6214f16092a31284/taskcluster/scripts/run-task --output run-task
+          curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/SfZXE6A8TvGPBHSP1RQlyw/artifacts/public/build/mozharness.zip --output mozharness.zip
+          7z x -omozharness mozharness.zip
+      - name: dependencies
+        run: |
+          python -m pip install --upgrade zstandard
+          python -m pip install --upgrade certifi
+      - name: test
+        env:
+          TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
+          PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+        run: |
+          python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-devtools-chrome --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --download-symbols ondemand
+  opt-mochitest-devtools-chrome-e10s-4:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - name: mounts
+        run: |
+          curl -L https://hg.mozilla.org/try/raw-file/45c659bd4922fa3b4a7b602c6214f16092a31284/taskcluster/scripts/misc/fetch-content --output fetch-content
+          curl -L https://hg.mozilla.org/try/raw-file/45c659bd4922fa3b4a7b602c6214f16092a31284/taskcluster/scripts/run-task --output run-task
+          curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/SfZXE6A8TvGPBHSP1RQlyw/artifacts/public/build/mozharness.zip --output mozharness.zip
+          7z x -omozharness mozharness.zip
+      - name: dependencies
+        run: |
+          python -m pip install --upgrade zstandard
+          python -m pip install --upgrade certifi
+      - name: test
+        env:
+          TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
+          PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+        run: |
+          python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-devtools-chrome --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --download-symbols ondemand
+  opt-mochitest-devtools-chrome-e10s-3:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - name: mounts
+        run: |
+          curl -L https://hg.mozilla.org/try/raw-file/45c659bd4922fa3b4a7b602c6214f16092a31284/taskcluster/scripts/misc/fetch-content --output fetch-content
+          curl -L https://hg.mozilla.org/try/raw-file/45c659bd4922fa3b4a7b602c6214f16092a31284/taskcluster/scripts/run-task --output run-task
+          curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/SfZXE6A8TvGPBHSP1RQlyw/artifacts/public/build/mozharness.zip --output mozharness.zip
+          7z x -omozharness mozharness.zip
+      - name: dependencies
+        run: |
+          python -m pip install --upgrade zstandard
+          python -m pip install --upgrade certifi
+      - name: test
+        env:
+          TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
+          PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+        run: |
+          python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-devtools-chrome --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --download-symbols ondemand
+  opt-mochitest-devtools-chrome-e10s-2:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - name: mounts
+        run: |
+          curl -L https://hg.mozilla.org/try/raw-file/45c659bd4922fa3b4a7b602c6214f16092a31284/taskcluster/scripts/misc/fetch-content --output fetch-content
+          curl -L https://hg.mozilla.org/try/raw-file/45c659bd4922fa3b4a7b602c6214f16092a31284/taskcluster/scripts/run-task --output run-task
+          curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/SfZXE6A8TvGPBHSP1RQlyw/artifacts/public/build/mozharness.zip --output mozharness.zip
+          7z x -omozharness mozharness.zip
+      - name: dependencies
+        run: |
+          python -m pip install --upgrade zstandard
+          python -m pip install --upgrade certifi
+      - name: test
+        env:
+          TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
+          PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+        run: |
+          python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-devtools-chrome --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --download-symbols ondemand
+  opt-mochitest-devtools-chrome-e10s-1:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - name: mounts
+        run: |
+          curl -L https://hg.mozilla.org/try/raw-file/45c659bd4922fa3b4a7b602c6214f16092a31284/taskcluster/scripts/misc/fetch-content --output fetch-content
+          curl -L https://hg.mozilla.org/try/raw-file/45c659bd4922fa3b4a7b602c6214f16092a31284/taskcluster/scripts/run-task --output run-task
+          curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/SfZXE6A8TvGPBHSP1RQlyw/artifacts/public/build/mozharness.zip --output mozharness.zip
+          7z x -omozharness mozharness.zip
+      - name: dependencies
+        run: |
+          python -m pip install --upgrade zstandard
+          python -m pip install --upgrade certifi
+      - name: test
+        env:
+          TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
+          PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+        run: |
+          python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-devtools-chrome --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --download-symbols ondemand
+  opt-mochitest-devtools-chrome-e10s-6:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - name: mounts
+        run: |
+          curl -L https://hg.mozilla.org/try/raw-file/45c659bd4922fa3b4a7b602c6214f16092a31284/taskcluster/scripts/misc/fetch-content --output fetch-content
+          curl -L https://hg.mozilla.org/try/raw-file/45c659bd4922fa3b4a7b602c6214f16092a31284/taskcluster/scripts/run-task --output run-task
+          curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/SfZXE6A8TvGPBHSP1RQlyw/artifacts/public/build/mozharness.zip --output mozharness.zip
+          7z x -omozharness mozharness.zip
+      - name: dependencies
+        run: |
+          python -m pip install --upgrade zstandard
+          python -m pip install --upgrade certifi
+      - name: test
+        env:
+          TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
+          PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+        run: |
+          python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-devtools-chrome --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --download-symbols ondemand
+  opt-mochitest-devtools-chrome-e10s-7:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - name: mounts
+        run: |
+          curl -L https://hg.mozilla.org/try/raw-file/45c659bd4922fa3b4a7b602c6214f16092a31284/taskcluster/scripts/misc/fetch-content --output fetch-content
+          curl -L https://hg.mozilla.org/try/raw-file/45c659bd4922fa3b4a7b602c6214f16092a31284/taskcluster/scripts/run-task --output run-task
+          curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/SfZXE6A8TvGPBHSP1RQlyw/artifacts/public/build/mozharness.zip --output mozharness.zip
+          7z x -omozharness mozharness.zip
+      - name: dependencies
+        run: |
+          python -m pip install --upgrade zstandard
+          python -m pip install --upgrade certifi
+      - name: test
+        env:
+          TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
+          PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+        run: |
+          python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-devtools-chrome --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --download-symbols ondemand

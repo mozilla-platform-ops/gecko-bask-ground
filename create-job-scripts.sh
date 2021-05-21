@@ -44,39 +44,40 @@ for indexed_build in ${indexed_builds[@]}; do
       #mozharness_artifact_task_id=$(_jq '.task.payload.mounts[] | select(.format == "zip" and .directory == "mozharness") | .content.taskId')
 
 
-      #job=(${task_name/\// })
-      if [ ! -f ${script_dir}/jobs/${test_suite}.yml ]; then
-        echo "---" > ${script_dir}/jobs/${test_suite}.yml
-        echo "name: ${test_suite}" >> ${script_dir}/jobs/${test_suite}.yml
-        echo "on:" >> ${script_dir}/jobs/${test_suite}.yml
-        echo "  push:" >> ${script_dir}/jobs/${test_suite}.yml
-        echo "    branches:" >> ${script_dir}/jobs/${test_suite}.yml
-        echo "      - main" >> ${script_dir}/jobs/${test_suite}.yml
-        echo "jobs:" >> ${script_dir}/jobs/${test_suite}.yml
-        echo "created: ${script_dir}/jobs/${test_suite}.yml"
+      job=(${task_name/\// })
+      workflow_path=${script_dir}/jobs/${test_suite}-${job[0]}.yml
+      if [ ! -f ${workflow_path} ]; then
+        echo "---" > ${workflow_path}
+        echo "name: ${test_suite} (${job[0]})" >> ${workflow_path}
+        echo "on:" >> ${workflow_path}
+        echo "  push:" >> ${workflow_path}
+        echo "    branches:" >> ${workflow_path}
+        echo "      - main" >> ${workflow_path}
+        echo "jobs:" >> ${workflow_path}
+        echo "created: ${workflow_path}"
       else
-        echo "detected: ${script_dir}/jobs/${test_suite}.yml"
+        echo "detected: ${workflow_path}"
       fi
-      echo "  ${task_name}:" >> ${script_dir}/jobs/${test_suite}.yml
-      echo "    runs-on: windows-2019" >> ${script_dir}/jobs/${test_suite}.yml
-      echo "    steps:" >> ${script_dir}/jobs/${test_suite}.yml
-      echo "      - uses: actions/checkout@v2" >> ${script_dir}/jobs/${test_suite}.yml
-      echo "      - name: mounts" >> ${script_dir}/jobs/${test_suite}.yml
-      echo "        run: |" >> ${script_dir}/jobs/${test_suite}.yml
-      echo "          curl -L https://hg.mozilla.org/try/raw-file/${commit_sha}/taskcluster/scripts/misc/fetch-content --output fetch-content" >> ${script_dir}/jobs/${test_suite}.yml
-      echo "          curl -L https://hg.mozilla.org/try/raw-file/${commit_sha}/taskcluster/scripts/run-task --output run-task" >> ${script_dir}/jobs/${test_suite}.yml
-      echo "          curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/${build_task_id}/artifacts/public/build/mozharness.zip --output mozharness.zip" >> ${script_dir}/jobs/${test_suite}.yml
-      echo "          7z x -omozharness mozharness.zip" >> ${script_dir}/jobs/${test_suite}.yml
-      echo "      - name: python deps" >> ${script_dir}/jobs/${test_suite}.yml
-      echo "        run: |" >> ${script_dir}/jobs/${test_suite}.yml
-      echo "          python -m pip install --upgrade zstandard" >> ${script_dir}/jobs/${test_suite}.yml
-      echo "          python -m pip install --upgrade certifi" >> ${script_dir}/jobs/${test_suite}.yml
-      echo "      - name: task" >> ${script_dir}/jobs/${test_suite}.yml
-      echo "        env:" >> ${script_dir}/jobs/${test_suite}.yml
-      echo "          TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com" >> ${script_dir}/jobs/${test_suite}.yml
-      echo "          PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe" >> ${script_dir}/jobs/${test_suite}.yml
-      echo "        run: |" >> ${script_dir}/jobs/${test_suite}.yml
-      echo "          ${command_0/C:\/mozilla-build\/python3\/python3.exe run-task -- c:\\\\mozilla-build\\\\python3\\\\python3.exe/python run-task -- python}" >> ${script_dir}/jobs/${test_suite}.yml
+      echo "  ${job[1]}:" >> ${workflow_path}
+      echo "    runs-on: windows-2019" >> ${workflow_path}
+      echo "    steps:" >> ${workflow_path}
+      echo "      - uses: actions/checkout@v2" >> ${workflow_path}
+      echo "      - name: mounts" >> ${workflow_path}
+      echo "        run: |" >> ${workflow_path}
+      echo "          curl -L https://hg.mozilla.org/try/raw-file/${commit_sha}/taskcluster/scripts/misc/fetch-content --output fetch-content" >> ${workflow_path}
+      echo "          curl -L https://hg.mozilla.org/try/raw-file/${commit_sha}/taskcluster/scripts/run-task --output run-task" >> ${workflow_path}
+      echo "          curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/${build_task_id}/artifacts/public/build/mozharness.zip --output mozharness.zip" >> ${workflow_path}
+      echo "          7z x -omozharness mozharness.zip" >> ${workflow_path}
+      echo "      - name: dependencies" >> ${workflow_path}
+      echo "        run: |" >> ${workflow_path}
+      echo "          python -m pip install --upgrade zstandard" >> ${workflow_path}
+      echo "          python -m pip install --upgrade certifi" >> ${workflow_path}
+      echo "      - name: test" >> ${workflow_path}
+      echo "        env:" >> ${workflow_path}
+      echo "          TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com" >> ${workflow_path}
+      echo "          PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe" >> ${workflow_path}
+      echo "        run: |" >> ${workflow_path}
+      echo "          ${command_0/C:\/mozilla-build\/python3\/python3.exe run-task -- c:\\\\mozilla-build\\\\python3\\\\python3.exe/python run-task -- python}" >> ${workflow_path}
     done
   done
 done
