@@ -12,23 +12,37 @@ _jq_q() {
 
 subl ${temp_dir}
 
-# latest mozilla-central
-# build_index_prefix=gecko.v2.mozilla-central.latest.firefox
+if [ -z ${1+x} ]; then
+  tree=mozilla-central
+else
+  tree=${1}
+fi
+
+if [ -z ${2+x} ]; then
+  revision=latest
+else
+  revision=revision.${2}
+fi
+build_index_prefix=gecko.v2.${tree}.${revision}.firefox
 
 # contains a patch allowing external pypi (https://hg.mozilla.org/try/rev/07d952b)
-build_index_prefix=gecko.v2.try.revision.d6f981475764dc0fab78bc4f5d8d4601e1ca21f6.firefox
+# build_index_prefix=gecko.v2.try.revision.d6f981475764dc0fab78bc4f5d8d4601e1ca21f6.firefox
 
-indexed_builds=( ${build_index_prefix}.win64-debug ${build_index_prefix}.win64-asan-opt ${build_index_prefix}.win64-ccov-opt )
+echo "using index prefix: ${build_index_prefix}"
+
+builds=( win64-debug win64-asan-opt win64-ccov-opt )
 worker_types=( t-win10-64 )
 
 mkdir -p ${temp_dir}/jobs
 rm ${script_dir}/.github/workflows/*.yml 2> /dev/null
-for indexed_build in ${indexed_builds[@]}; do
+for build in ${builds[@]}; do
+  indexed_build=${build_index_prefix}.${build}
+  echo "- processing indexed build: ${indexed_build}"
   curl -sL https://firefox-ci-tc.services.mozilla.com/api/index/v1/task/${indexed_build} --output ${temp_dir}/indexed-build-task-${indexed_build}.json
   build_task_id=$(jq -r '.taskId' ${temp_dir}/indexed-build-task-${indexed_build}.json)
   curl -sL https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/${build_task_id} --output ${temp_dir}/build-task-${build_task_id}.json
   build_task_group_id=$(jq -r '.taskGroupId' ${temp_dir}/build-task-${build_task_id}.json)
-  echo "- build task id: ${build_task_id}, in task group: ${build_task_group_id}, determined for indexed build: ${indexed_build}"
+  echo "  - build task id: ${build_task_id}, in task group: ${build_task_group_id}, determined for indexed build: ${indexed_build}"
 
   i="1"
   continuation_token=""
