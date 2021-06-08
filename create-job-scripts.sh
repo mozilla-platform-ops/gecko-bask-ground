@@ -12,10 +12,17 @@ _jq_q() {
 
 subl ${temp_dir}
 
-indexed_builds=( gecko.v2.mozilla-central.latest.firefox.win64-debug gecko.v2.mozilla-central.latest.firefox.win64-asan-opt gecko.v2.mozilla-central.latest.firefox.win64-ccov-opt )
+# latest mozilla-central
+# build_index_prefix=gecko.v2.mozilla-central.latest.firefox
+
+# contains a patch allowing external pypi (https://hg.mozilla.org/try/rev/07d952b)
+build_index_prefix=gecko.v2.try.revision.d6f981475764dc0fab78bc4f5d8d4601e1ca21f6.firefox
+
+indexed_builds=( ${build_index_prefix}.win64-debug ${build_index_prefix}.win64-asan-opt ${build_index_prefix}.win64-ccov-opt )
 worker_types=( t-win10-64 )
 
 mkdir -p ${temp_dir}/jobs
+rm ${script_dir}/.github/workflows/*.yml 2> /dev/null
 for indexed_build in ${indexed_builds[@]}; do
   curl -sL https://firefox-ci-tc.services.mozilla.com/api/index/v1/task/${indexed_build} --output ${temp_dir}/indexed-build-task-${indexed_build}.json
   build_task_id=$(jq -r '.taskId' ${temp_dir}/indexed-build-task-${indexed_build}.json)
@@ -44,7 +51,7 @@ for indexed_build in ${indexed_builds[@]}; do
       task_name=$(_jq ${task_base64} '.task.metadata.name')
       test_suite=$(_jq ${task_base64} '.task.extra.suite')
       job=(${task_name/\// })
-      workflow_path=${temp_dir}/jobs/${test_suite}-${job[0]}.yml
+      workflow_path=${script_dir}/.github/workflows/${test_suite}-${job[0]}.yml
       if [ ! -f ${workflow_path} ]; then
         echo "---" > ${workflow_path}
         echo "name: ${test_suite} (${job[0]})" >> ${workflow_path}
@@ -98,6 +105,3 @@ for indexed_build in ${indexed_builds[@]}; do
     done
   done
 done
-
-rm ${script_dir}/.github/workflows/*.yml
-cp ${temp_dir}/jobs/*.yml ${script_dir}/.github/workflows/
