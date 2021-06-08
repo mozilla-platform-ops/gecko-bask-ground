@@ -1,0 +1,317 @@
+---
+name: mochitest-devtools-chrome (test-windows10-64)
+on:
+  push:
+    branches:
+      - main
+jobs:
+  debug-mochitest-devtools-chrome-fis-e10s-4:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - name: mounts
+        run: |
+          curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/mozharness.zip --output mozharness.zip
+          7z x -omozharness mozharness.zip
+          curl -L https://hg.mozilla.org/try/raw-file/d6f981475764dc0fab78bc4f5d8d4601e1ca21f6/taskcluster/scripts/run-task --output ./run-task
+          curl -L https://hg.mozilla.org/try/raw-file/d6f981475764dc0fab78bc4f5d8d4601e1ca21f6/taskcluster/scripts/misc/fetch-content --output ./fetch-content
+      - name: dependencies
+        run: |
+          python -m pip install --upgrade zstandard
+          python -m pip install --upgrade certifi
+      - name: test
+        env:
+          TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
+          PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"MfZ57fS0RJq2SDEaJuIF-w\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"RJVVjsRKS_WpChQ-NujlIw\"}]"
+          TRY_SELECTOR: "chooser"
+          MOZ_SCM_LEVEL: "1"
+          GECKO_HEAD_REV: "d6f981475764dc0fab78bc4f5d8d4601e1ca21f6"
+          MOZ_AUTOMATION: "1"
+          TRY_COMMIT_MSG: ""
+          MOZ_FETCHES_DIR: "fetches"
+          SCCACHE_DISABLE: "1"
+          GECKO_HEAD_REPOSITORY: "https://hg.mozilla.org/try"
+          MOZHARNESS_TEST_PATHS: "{\"mochitest-devtools-chrome\": [\"devtools/client/framework/browser-toolbox/test/browser.ini\", \"devtools/client/inspector/animation/test/browser.ini\", \"devtools/client/inspector/extensions/test/browser.ini\", \"devtools/client/inspector/grids/test/browser.ini\", \"devtools/client/inspector/markup/test/browser.ini\", \"devtools/client/inspector/rules/test/browser_part2.ini\", \"devtools/client/performance-new/test/browser/browser.ini\", \"devtools/client/shared/components/test/browser/browser.ini\", \"devtools/client/webconsole/test/browser/_browser_console.ini\", \"devtools/shared/commands/inspected-window/tests/browser.ini\", \"devtools/shared/test-helpers/browser.ini\", \"devtools/startup/aboutdevtools/test/browser.ini\"]}"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/target.test_packages.json\"}"
+        run: |
+          python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-devtools-chrome --setpref=fission.autostart=true --setpref=dom.serviceWorkers.parent_intercept=true --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --download-symbols true
+  debug-mochitest-devtools-chrome-e10s-4:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - name: mounts
+        run: |
+          curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/mozharness.zip --output mozharness.zip
+          7z x -omozharness mozharness.zip
+          curl -L https://hg.mozilla.org/try/raw-file/d6f981475764dc0fab78bc4f5d8d4601e1ca21f6/taskcluster/scripts/run-task --output ./run-task
+          curl -L https://hg.mozilla.org/try/raw-file/d6f981475764dc0fab78bc4f5d8d4601e1ca21f6/taskcluster/scripts/misc/fetch-content --output ./fetch-content
+      - name: dependencies
+        run: |
+          python -m pip install --upgrade zstandard
+          python -m pip install --upgrade certifi
+      - name: test
+        env:
+          TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
+          PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"MfZ57fS0RJq2SDEaJuIF-w\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"RJVVjsRKS_WpChQ-NujlIw\"}]"
+          TRY_SELECTOR: "chooser"
+          MOZ_SCM_LEVEL: "1"
+          GECKO_HEAD_REV: "d6f981475764dc0fab78bc4f5d8d4601e1ca21f6"
+          MOZ_AUTOMATION: "1"
+          TRY_COMMIT_MSG: ""
+          MOZ_FETCHES_DIR: "fetches"
+          SCCACHE_DISABLE: "1"
+          GECKO_HEAD_REPOSITORY: "https://hg.mozilla.org/try"
+          MOZHARNESS_TEST_PATHS: "{\"mochitest-devtools-chrome\": [\"devtools/client/framework/browser-toolbox/test/browser.ini\", \"devtools/client/inspector/animation/test/browser.ini\", \"devtools/client/inspector/extensions/test/browser.ini\", \"devtools/client/inspector/grids/test/browser.ini\", \"devtools/client/inspector/markup/test/browser.ini\", \"devtools/client/inspector/rules/test/browser_part2.ini\", \"devtools/client/performance-new/test/browser/browser.ini\", \"devtools/client/shared/components/test/browser/browser.ini\", \"devtools/client/webconsole/test/browser/_browser_console.ini\", \"devtools/shared/commands/inspected-window/tests/browser.ini\", \"devtools/shared/test-helpers/browser.ini\", \"devtools/startup/aboutdevtools/test/browser.ini\"]}"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/target.test_packages.json\"}"
+        run: |
+          python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-devtools-chrome --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --download-symbols true
+  debug-mochitest-devtools-chrome-fis-e10s-2:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - name: mounts
+        run: |
+          curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/mozharness.zip --output mozharness.zip
+          7z x -omozharness mozharness.zip
+          curl -L https://hg.mozilla.org/try/raw-file/d6f981475764dc0fab78bc4f5d8d4601e1ca21f6/taskcluster/scripts/run-task --output ./run-task
+          curl -L https://hg.mozilla.org/try/raw-file/d6f981475764dc0fab78bc4f5d8d4601e1ca21f6/taskcluster/scripts/misc/fetch-content --output ./fetch-content
+      - name: dependencies
+        run: |
+          python -m pip install --upgrade zstandard
+          python -m pip install --upgrade certifi
+      - name: test
+        env:
+          TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
+          PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"MfZ57fS0RJq2SDEaJuIF-w\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"RJVVjsRKS_WpChQ-NujlIw\"}]"
+          TRY_SELECTOR: "chooser"
+          MOZ_SCM_LEVEL: "1"
+          GECKO_HEAD_REV: "d6f981475764dc0fab78bc4f5d8d4601e1ca21f6"
+          MOZ_AUTOMATION: "1"
+          TRY_COMMIT_MSG: ""
+          MOZ_FETCHES_DIR: "fetches"
+          SCCACHE_DISABLE: "1"
+          GECKO_HEAD_REPOSITORY: "https://hg.mozilla.org/try"
+          MOZHARNESS_TEST_PATHS: "{\"mochitest-devtools-chrome\": [\"devtools/client/inspector/boxmodel/test/browser.ini\", \"devtools/client/memory/test/browser/browser.ini\", \"devtools/client/netmonitor/src/har/test/browser.ini\", \"devtools/client/storage/test/browser.ini\", \"devtools/client/webconsole/test/browser/_jsterm.ini\", \"devtools/client/webconsole/test/browser/_webconsole.ini\", \"devtools/shared/commands/script/tests/browser.ini\", \"devtools/shared/commands/target/tests/browser.ini\"]}"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/target.test_packages.json\"}"
+        run: |
+          python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-devtools-chrome --setpref=fission.autostart=true --setpref=dom.serviceWorkers.parent_intercept=true --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --download-symbols true
+  debug-mochitest-devtools-chrome-fis-e10s-5:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - name: mounts
+        run: |
+          curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/mozharness.zip --output mozharness.zip
+          7z x -omozharness mozharness.zip
+          curl -L https://hg.mozilla.org/try/raw-file/d6f981475764dc0fab78bc4f5d8d4601e1ca21f6/taskcluster/scripts/run-task --output ./run-task
+          curl -L https://hg.mozilla.org/try/raw-file/d6f981475764dc0fab78bc4f5d8d4601e1ca21f6/taskcluster/scripts/misc/fetch-content --output ./fetch-content
+      - name: dependencies
+        run: |
+          python -m pip install --upgrade zstandard
+          python -m pip install --upgrade certifi
+      - name: test
+        env:
+          TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
+          PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"MfZ57fS0RJq2SDEaJuIF-w\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"RJVVjsRKS_WpChQ-NujlIw\"}]"
+          TRY_SELECTOR: "chooser"
+          MOZ_SCM_LEVEL: "1"
+          GECKO_HEAD_REV: "d6f981475764dc0fab78bc4f5d8d4601e1ca21f6"
+          MOZ_AUTOMATION: "1"
+          TRY_COMMIT_MSG: ""
+          MOZ_FETCHES_DIR: "fetches"
+          SCCACHE_DISABLE: "1"
+          GECKO_HEAD_REPOSITORY: "https://hg.mozilla.org/try"
+          MOZHARNESS_TEST_PATHS: "{\"mochitest-devtools-chrome\": [\"devtools/client/accessibility/test/browser/browser.ini\", \"devtools/client/dom/test/browser.ini\", \"devtools/client/inspector/changes/test/browser.ini\", \"devtools/client/inspector/rules/test/browser_part1.ini\", \"devtools/client/inspector/shared/test/browser.ini\", \"devtools/client/netmonitor/test/browser.ini\", \"devtools/client/shared/test/browser.ini\", \"devtools/client/styleeditor/test/browser.ini\", \"devtools/shared/commands/target-configuration/tests/browser.ini\"]}"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/target.test_packages.json\"}"
+        run: |
+          python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-devtools-chrome --setpref=fission.autostart=true --setpref=dom.serviceWorkers.parent_intercept=true --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --download-symbols true
+  debug-mochitest-devtools-chrome-e10s-2:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - name: mounts
+        run: |
+          curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/mozharness.zip --output mozharness.zip
+          7z x -omozharness mozharness.zip
+          curl -L https://hg.mozilla.org/try/raw-file/d6f981475764dc0fab78bc4f5d8d4601e1ca21f6/taskcluster/scripts/run-task --output ./run-task
+          curl -L https://hg.mozilla.org/try/raw-file/d6f981475764dc0fab78bc4f5d8d4601e1ca21f6/taskcluster/scripts/misc/fetch-content --output ./fetch-content
+      - name: dependencies
+        run: |
+          python -m pip install --upgrade zstandard
+          python -m pip install --upgrade certifi
+      - name: test
+        env:
+          TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
+          PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"MfZ57fS0RJq2SDEaJuIF-w\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"RJVVjsRKS_WpChQ-NujlIw\"}]"
+          TRY_SELECTOR: "chooser"
+          MOZ_SCM_LEVEL: "1"
+          GECKO_HEAD_REV: "d6f981475764dc0fab78bc4f5d8d4601e1ca21f6"
+          MOZ_AUTOMATION: "1"
+          TRY_COMMIT_MSG: ""
+          MOZ_FETCHES_DIR: "fetches"
+          SCCACHE_DISABLE: "1"
+          GECKO_HEAD_REPOSITORY: "https://hg.mozilla.org/try"
+          MOZHARNESS_TEST_PATHS: "{\"mochitest-devtools-chrome\": [\"devtools/client/inspector/boxmodel/test/browser.ini\", \"devtools/client/memory/test/browser/browser.ini\", \"devtools/client/netmonitor/src/har/test/browser.ini\", \"devtools/client/storage/test/browser.ini\", \"devtools/client/webconsole/test/browser/_jsterm.ini\", \"devtools/client/webconsole/test/browser/_webconsole.ini\", \"devtools/shared/commands/script/tests/browser.ini\", \"devtools/shared/commands/target/tests/browser.ini\"]}"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/target.test_packages.json\"}"
+        run: |
+          python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-devtools-chrome --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --download-symbols true
+  debug-mochitest-devtools-chrome-fis-e10s-1:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - name: mounts
+        run: |
+          curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/mozharness.zip --output mozharness.zip
+          7z x -omozharness mozharness.zip
+          curl -L https://hg.mozilla.org/try/raw-file/d6f981475764dc0fab78bc4f5d8d4601e1ca21f6/taskcluster/scripts/run-task --output ./run-task
+          curl -L https://hg.mozilla.org/try/raw-file/d6f981475764dc0fab78bc4f5d8d4601e1ca21f6/taskcluster/scripts/misc/fetch-content --output ./fetch-content
+      - name: dependencies
+        run: |
+          python -m pip install --upgrade zstandard
+          python -m pip install --upgrade certifi
+      - name: test
+        env:
+          TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
+          PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"MfZ57fS0RJq2SDEaJuIF-w\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"RJVVjsRKS_WpChQ-NujlIw\"}]"
+          TRY_SELECTOR: "chooser"
+          MOZ_SCM_LEVEL: "1"
+          GECKO_HEAD_REV: "d6f981475764dc0fab78bc4f5d8d4601e1ca21f6"
+          MOZ_AUTOMATION: "1"
+          TRY_COMMIT_MSG: ""
+          MOZ_FETCHES_DIR: "fetches"
+          SCCACHE_DISABLE: "1"
+          GECKO_HEAD_REPOSITORY: "https://hg.mozilla.org/try"
+          MOZHARNESS_TEST_PATHS: "{\"mochitest-devtools-chrome\": [\"devtools/client/debugger/test/mochitest/browser.ini\", \"devtools/client/framework/test/browser-telemetry-startup.ini\", \"devtools/client/framework/test/browser.ini\", \"devtools/client/inspector/computed/test/browser.ini\", \"devtools/client/inspector/flexbox/test/browser.ini\", \"devtools/client/inspector/fonts/test/browser.ini\", \"devtools/client/jsonview/test/browser.ini\", \"devtools/client/netmonitor/src/har/test/browser-harautomation.ini\", \"devtools/shared/commands/inspector/tests/browser.ini\", \"devtools/shared/heapsnapshot/tests/browser/browser.ini\", \"devtools/shared/tests/browser/browser.ini\", \"devtools/shared/worker/tests/browser/browser.ini\"]}"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/target.test_packages.json\"}"
+        run: |
+          python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-devtools-chrome --setpref=fission.autostart=true --setpref=dom.serviceWorkers.parent_intercept=true --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --download-symbols true
+  debug-mochitest-devtools-chrome-fis-e10s-3:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - name: mounts
+        run: |
+          curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/mozharness.zip --output mozharness.zip
+          7z x -omozharness mozharness.zip
+          curl -L https://hg.mozilla.org/try/raw-file/d6f981475764dc0fab78bc4f5d8d4601e1ca21f6/taskcluster/scripts/run-task --output ./run-task
+          curl -L https://hg.mozilla.org/try/raw-file/d6f981475764dc0fab78bc4f5d8d4601e1ca21f6/taskcluster/scripts/misc/fetch-content --output ./fetch-content
+      - name: dependencies
+        run: |
+          python -m pip install --upgrade zstandard
+          python -m pip install --upgrade certifi
+      - name: test
+        env:
+          TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
+          PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"MfZ57fS0RJq2SDEaJuIF-w\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"RJVVjsRKS_WpChQ-NujlIw\"}]"
+          TRY_SELECTOR: "chooser"
+          MOZ_SCM_LEVEL: "1"
+          GECKO_HEAD_REV: "d6f981475764dc0fab78bc4f5d8d4601e1ca21f6"
+          MOZ_AUTOMATION: "1"
+          TRY_COMMIT_MSG: ""
+          MOZ_FETCHES_DIR: "fetches"
+          SCCACHE_DISABLE: "1"
+          GECKO_HEAD_REPOSITORY: "https://hg.mozilla.org/try"
+          MOZHARNESS_TEST_PATHS: "{\"mochitest-devtools-chrome\": [\"devtools/client/aboutdebugging/test/browser/browser.ini\", \"devtools/client/application/test/browser/browser.ini\", \"devtools/client/framework/test/browser-enable-popup-devtools-user.ini\", \"devtools/client/framework/test/browser-enable-popup-new-user.ini\", \"devtools/client/inspector/compatibility/test/browser/browser.ini\", \"devtools/client/inspector/test/browser.ini\", \"devtools/client/performance/test/browser.ini\", \"devtools/client/shared/sourceeditor/test/browser.ini\", \"devtools/server/tests/browser/browser.ini\", \"devtools/shared/commands/resource/tests/browser.ini\", \"devtools/shared/webconsole/test/browser/browser.ini\", \"devtools/startup/tests/browser/browser.ini\"]}"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/target.test_packages.json\"}"
+        run: |
+          python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-devtools-chrome --setpref=fission.autostart=true --setpref=dom.serviceWorkers.parent_intercept=true --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --download-symbols true
+  debug-mochitest-devtools-chrome-e10s-1:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - name: mounts
+        run: |
+          curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/mozharness.zip --output mozharness.zip
+          7z x -omozharness mozharness.zip
+          curl -L https://hg.mozilla.org/try/raw-file/d6f981475764dc0fab78bc4f5d8d4601e1ca21f6/taskcluster/scripts/run-task --output ./run-task
+          curl -L https://hg.mozilla.org/try/raw-file/d6f981475764dc0fab78bc4f5d8d4601e1ca21f6/taskcluster/scripts/misc/fetch-content --output ./fetch-content
+      - name: dependencies
+        run: |
+          python -m pip install --upgrade zstandard
+          python -m pip install --upgrade certifi
+      - name: test
+        env:
+          TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
+          PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"MfZ57fS0RJq2SDEaJuIF-w\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"RJVVjsRKS_WpChQ-NujlIw\"}]"
+          TRY_SELECTOR: "chooser"
+          MOZ_SCM_LEVEL: "1"
+          GECKO_HEAD_REV: "d6f981475764dc0fab78bc4f5d8d4601e1ca21f6"
+          MOZ_AUTOMATION: "1"
+          TRY_COMMIT_MSG: ""
+          MOZ_FETCHES_DIR: "fetches"
+          SCCACHE_DISABLE: "1"
+          GECKO_HEAD_REPOSITORY: "https://hg.mozilla.org/try"
+          MOZHARNESS_TEST_PATHS: "{\"mochitest-devtools-chrome\": [\"devtools/client/debugger/test/mochitest/browser.ini\", \"devtools/client/framework/test/browser-telemetry-startup.ini\", \"devtools/client/framework/test/browser.ini\", \"devtools/client/inspector/computed/test/browser.ini\", \"devtools/client/inspector/flexbox/test/browser.ini\", \"devtools/client/inspector/fonts/test/browser.ini\", \"devtools/client/jsonview/test/browser.ini\", \"devtools/client/netmonitor/src/har/test/browser-harautomation.ini\", \"devtools/shared/commands/inspector/tests/browser.ini\", \"devtools/shared/heapsnapshot/tests/browser/browser.ini\", \"devtools/shared/tests/browser/browser.ini\", \"devtools/shared/worker/tests/browser/browser.ini\"]}"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/target.test_packages.json\"}"
+        run: |
+          python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-devtools-chrome --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --download-symbols true
+  debug-mochitest-devtools-chrome-e10s-3:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - name: mounts
+        run: |
+          curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/mozharness.zip --output mozharness.zip
+          7z x -omozharness mozharness.zip
+          curl -L https://hg.mozilla.org/try/raw-file/d6f981475764dc0fab78bc4f5d8d4601e1ca21f6/taskcluster/scripts/run-task --output ./run-task
+          curl -L https://hg.mozilla.org/try/raw-file/d6f981475764dc0fab78bc4f5d8d4601e1ca21f6/taskcluster/scripts/misc/fetch-content --output ./fetch-content
+      - name: dependencies
+        run: |
+          python -m pip install --upgrade zstandard
+          python -m pip install --upgrade certifi
+      - name: test
+        env:
+          TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
+          PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"MfZ57fS0RJq2SDEaJuIF-w\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"RJVVjsRKS_WpChQ-NujlIw\"}]"
+          TRY_SELECTOR: "chooser"
+          MOZ_SCM_LEVEL: "1"
+          GECKO_HEAD_REV: "d6f981475764dc0fab78bc4f5d8d4601e1ca21f6"
+          MOZ_AUTOMATION: "1"
+          TRY_COMMIT_MSG: ""
+          MOZ_FETCHES_DIR: "fetches"
+          SCCACHE_DISABLE: "1"
+          GECKO_HEAD_REPOSITORY: "https://hg.mozilla.org/try"
+          MOZHARNESS_TEST_PATHS: "{\"mochitest-devtools-chrome\": [\"devtools/client/aboutdebugging/test/browser/browser.ini\", \"devtools/client/application/test/browser/browser.ini\", \"devtools/client/framework/test/browser-enable-popup-devtools-user.ini\", \"devtools/client/framework/test/browser-enable-popup-new-user.ini\", \"devtools/client/inspector/compatibility/test/browser/browser.ini\", \"devtools/client/inspector/test/browser.ini\", \"devtools/client/performance/test/browser.ini\", \"devtools/client/shared/sourceeditor/test/browser.ini\", \"devtools/server/tests/browser/browser.ini\", \"devtools/shared/commands/resource/tests/browser.ini\", \"devtools/shared/webconsole/test/browser/browser.ini\", \"devtools/startup/tests/browser/browser.ini\"]}"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/target.test_packages.json\"}"
+        run: |
+          python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-devtools-chrome --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --download-symbols true
+  debug-mochitest-devtools-chrome-e10s-5:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - name: mounts
+        run: |
+          curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/mozharness.zip --output mozharness.zip
+          7z x -omozharness mozharness.zip
+          curl -L https://hg.mozilla.org/try/raw-file/d6f981475764dc0fab78bc4f5d8d4601e1ca21f6/taskcluster/scripts/run-task --output ./run-task
+          curl -L https://hg.mozilla.org/try/raw-file/d6f981475764dc0fab78bc4f5d8d4601e1ca21f6/taskcluster/scripts/misc/fetch-content --output ./fetch-content
+      - name: dependencies
+        run: |
+          python -m pip install --upgrade zstandard
+          python -m pip install --upgrade certifi
+      - name: test
+        env:
+          TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
+          PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"MfZ57fS0RJq2SDEaJuIF-w\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"RJVVjsRKS_WpChQ-NujlIw\"}]"
+          TRY_SELECTOR: "chooser"
+          MOZ_SCM_LEVEL: "1"
+          GECKO_HEAD_REV: "d6f981475764dc0fab78bc4f5d8d4601e1ca21f6"
+          MOZ_AUTOMATION: "1"
+          TRY_COMMIT_MSG: ""
+          MOZ_FETCHES_DIR: "fetches"
+          SCCACHE_DISABLE: "1"
+          GECKO_HEAD_REPOSITORY: "https://hg.mozilla.org/try"
+          MOZHARNESS_TEST_PATHS: "{\"mochitest-devtools-chrome\": [\"devtools/client/accessibility/test/browser/browser.ini\", \"devtools/client/dom/test/browser.ini\", \"devtools/client/inspector/changes/test/browser.ini\", \"devtools/client/inspector/rules/test/browser_part1.ini\", \"devtools/client/inspector/shared/test/browser.ini\", \"devtools/client/netmonitor/test/browser.ini\", \"devtools/client/shared/test/browser.ini\", \"devtools/client/styleeditor/test/browser.ini\", \"devtools/shared/commands/target-configuration/tests/browser.ini\"]}"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/target.test_packages.json\"}"
+        run: |
+          python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-devtools-chrome --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --download-symbols true

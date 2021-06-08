@@ -1,0 +1,38 @@
+---
+name: mochitest-a11y (test-windows10-64-asan)
+on:
+  push:
+    branches:
+      - main
+jobs:
+  opt-mochitest-a11y-1proc:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - name: mounts
+        run: |
+          curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/KOxlTjcQRt6yK9EKP58Kjw/artifacts/public/build/mozharness.zip --output mozharness.zip
+          7z x -omozharness mozharness.zip
+          curl -L https://hg.mozilla.org/try/raw-file/d6f981475764dc0fab78bc4f5d8d4601e1ca21f6/taskcluster/scripts/run-task --output ./run-task
+          curl -L https://hg.mozilla.org/try/raw-file/d6f981475764dc0fab78bc4f5d8d4601e1ca21f6/taskcluster/scripts/misc/fetch-content --output ./fetch-content
+      - name: dependencies
+        run: |
+          python -m pip install --upgrade zstandard
+          python -m pip install --upgrade certifi
+      - name: test
+        env:
+          TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
+          PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"MfZ57fS0RJq2SDEaJuIF-w\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"RJVVjsRKS_WpChQ-NujlIw\"}]"
+          TRY_SELECTOR: "chooser"
+          MOZ_SCM_LEVEL: "1"
+          GECKO_HEAD_REV: "d6f981475764dc0fab78bc4f5d8d4601e1ca21f6"
+          MOZ_AUTOMATION: "1"
+          TRY_COMMIT_MSG: ""
+          MOZ_FETCHES_DIR: "fetches"
+          SCCACHE_DISABLE: "1"
+          GECKO_HEAD_REPOSITORY: "https://hg.mozilla.org/try"
+          MOZHARNESS_TEST_PATHS: "{\"mochitest-a11y\": [\"accessible/tests/mochitest/a11y.ini\", \"accessible/tests/mochitest/actions/a11y.ini\", \"accessible/tests/mochitest/aom/a11y.ini\", \"accessible/tests/mochitest/attributes/a11y.ini\", \"accessible/tests/mochitest/bounds/a11y.ini\", \"accessible/tests/mochitest/editabletext/a11y.ini\", \"accessible/tests/mochitest/elm/a11y.ini\", \"accessible/tests/mochitest/events/a11y.ini\", \"accessible/tests/mochitest/events/docload/a11y.ini\", \"accessible/tests/mochitest/focus/a11y.ini\", \"accessible/tests/mochitest/hittest/a11y.ini\", \"accessible/tests/mochitest/hyperlink/a11y.ini\", \"accessible/tests/mochitest/hypertext/a11y.ini\", \"accessible/tests/mochitest/name/a11y.ini\", \"accessible/tests/mochitest/pivot/a11y.ini\", \"accessible/tests/mochitest/relations/a11y.ini\", \"accessible/tests/mochitest/role/a11y.ini\", \"accessible/tests/mochitest/scroll/a11y.ini\", \"accessible/tests/mochitest/selectable/a11y.ini\", \"accessible/tests/mochitest/states/a11y.ini\", \"accessible/tests/mochitest/table/a11y.ini\", \"accessible/tests/mochitest/text/a11y.ini\", \"accessible/tests/mochitest/textattrs/a11y.ini\", \"accessible/tests/mochitest/textcaret/a11y.ini\", \"accessible/tests/mochitest/textrange/a11y.ini\", \"accessible/tests/mochitest/textselection/a11y.ini\", \"accessible/tests/mochitest/tree/a11y.ini\", \"accessible/tests/mochitest/treeupdate/a11y.ini\", \"accessible/tests/mochitest/value/a11y.ini\"]}"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/KOxlTjcQRt6yK9EKP58Kjw/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/KOxlTjcQRt6yK9EKP58Kjw/artifacts/public/build/target.test_packages.json\"}"
+        run: |
+          python run-task -- python -u mozharness\scripts\desktop_unittest.py --cfg mozharness\configs\unittests\win_unittest.py --mochitest-suite=mochitest-a11y --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --disable-e10s --download-symbols ondemand

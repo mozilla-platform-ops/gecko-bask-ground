@@ -1,0 +1,39 @@
+---
+name: web-platform-tests-crashtest (test-windows10-64)
+on:
+  push:
+    branches:
+      - main
+jobs:
+  debug-web-platform-tests-crashtest-e10s:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - name: mounts
+        run: |
+          curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/mozharness.zip --output mozharness.zip
+          7z x -omozharness mozharness.zip
+          curl -L https://hg.mozilla.org/try/raw-file/d6f981475764dc0fab78bc4f5d8d4601e1ca21f6/taskcluster/scripts/run-task --output ./run-task
+          curl -L https://hg.mozilla.org/try/raw-file/d6f981475764dc0fab78bc4f5d8d4601e1ca21f6/taskcluster/scripts/misc/fetch-content --output ./fetch-content
+      - name: dependencies
+        run: |
+          python -m pip install --upgrade zstandard
+          python -m pip install --upgrade certifi
+      - name: test
+        env:
+          TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
+          PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"MfZ57fS0RJq2SDEaJuIF-w\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"RJVVjsRKS_WpChQ-NujlIw\"}]"
+          TRY_SELECTOR: "chooser"
+          MOZ_SCM_LEVEL: "1"
+          GECKO_HEAD_REV: "d6f981475764dc0fab78bc4f5d8d4601e1ca21f6"
+          MOZ_AUTOMATION: "1"
+          TRY_COMMIT_MSG: ""
+          MOZ_FETCHES_DIR: "fetches"
+          SCCACHE_DISABLE: "1"
+          GECKO_HEAD_REPOSITORY: "https://hg.mozilla.org/try"
+          MOZHARNESS_TEST_PATHS: "{\"web-platform-tests-crashtest\": [\"/accessibility/crashtests\", \"/css/CSS2/floats\", \"/css/CSS2/floats-clear\", \"/css/CSS2/linebox\", \"/css/css-animations\", \"/css/css-backgrounds\", \"/css/css-break\", \"/css/css-contain\", \"/css/css-contain/content-visibility\", \"/css/css-flexbox\", \"/css/css-fonts\", \"/css/css-grid/abspos\", \"/css/css-grid/grid-definition\", \"/css/css-grid/subgrid\", \"/css/css-images\", \"/css/css-layout-api\", \"/css/css-lists\", \"/css/css-multicol\", \"/css/css-overflow\", \"/css/css-paint-api\", \"/css/css-position\", \"/css/css-properties-values-api\", \"/css/css-pseudo\", \"/css/css-scroll-anchoring\", \"/css/css-shapes/shape-outside\", \"/css/css-sizing\", \"/css/css-sizing/aspect-ratio\", \"/css/css-tables\", \"/css/css-tables/crashtests\", \"/css/css-text\", \"/css/css-text/crashtests\", \"/css/css-text/hyphens\", \"/css/css-text/overflow-wrap\", \"/css/css-text/text-indent\", \"/css/css-text/white-space\", \"/css/css-ui\", \"/css/css-writing-modes\", \"/css/cssom\", \"/css/cssom-view\", \"/css/filter-effects\", \"/css/filter-effects/crashtests\", \"/css/motion\", \"/custom-elements\", \"/dom\", \"/dom/events\", \"/dom/nodes\", \"/dom/xslt\", \"/editing/other\", \"/editing/run\", \"/html/browsers/origin\", \"/html/canvas/element\", \"/html/interaction/focus\", \"/html/obsolete/requirements-for-implementations\", \"/html/rendering/non-replaced-elements\", \"/html/rendering/replaced-elements\", \"/html/rendering/the-details-element\", \"/html/semantics/embedded-content\", \"/html/semantics/forms\", \"/html/semantics/interactive-elements\", \"/html/semantics/scripting-1\", \"/html/semantics/text-level-semantics\", \"/infrastructure/crashtests\", \"/mathml/crashtests\", \"/portals\", \"/quirks\", \"/scroll-animations\", \"/selection\", \"/shadow-dom\", \"/svg/animations\", \"/svg/crashtests\", \"/svg/extensibility/foreignObject\", \"/svg/styling\", \"/svg/svg-in-svg\", \"/svg/text/reftests\"]}"
+          TESTS_BY_MANIFEST_URL: "https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/Q4PbHU1FQZOc05hl-IsiMQ/artifacts/public/tests-by-manifest.json.gz"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/target.test_packages.json\"}"
+        run: |
+          python run-task -- python -u mozharness\scripts\web_platform_tests.py --cfg mozharness\configs\web_platform_tests\prod_config_windows_taskcluster.py --test-type=crashtest --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --download-symbols true

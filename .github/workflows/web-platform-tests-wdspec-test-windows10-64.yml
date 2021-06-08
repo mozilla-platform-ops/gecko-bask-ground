@@ -1,0 +1,103 @@
+---
+name: web-platform-tests-wdspec (test-windows10-64)
+on:
+  push:
+    branches:
+      - main
+jobs:
+  debug-web-platform-tests-wdspec-e10s-2:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - name: mounts
+        run: |
+          curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/mozharness.zip --output mozharness.zip
+          7z x -omozharness mozharness.zip
+          curl -L https://hg.mozilla.org/try/raw-file/d6f981475764dc0fab78bc4f5d8d4601e1ca21f6/taskcluster/scripts/run-task --output ./run-task
+          curl -L https://hg.mozilla.org/try/raw-file/d6f981475764dc0fab78bc4f5d8d4601e1ca21f6/taskcluster/scripts/misc/fetch-content --output ./fetch-content
+      - name: dependencies
+        run: |
+          python -m pip install --upgrade zstandard
+          python -m pip install --upgrade certifi
+      - name: test
+        env:
+          TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
+          PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"MfZ57fS0RJq2SDEaJuIF-w\"}, {\"artifact\": \"public/build/geckodriver.zip\", \"extract\": true, \"task\": \"Im-_glk4R_6cfQvYPKId_g\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"RJVVjsRKS_WpChQ-NujlIw\"}]"
+          TRY_SELECTOR: "chooser"
+          MOZ_SCM_LEVEL: "1"
+          GECKO_HEAD_REV: "d6f981475764dc0fab78bc4f5d8d4601e1ca21f6"
+          MOZ_AUTOMATION: "1"
+          TRY_COMMIT_MSG: ""
+          MOZ_FETCHES_DIR: "fetches"
+          SCCACHE_DISABLE: "1"
+          GECKO_HEAD_REPOSITORY: "https://hg.mozilla.org/try"
+          MOZHARNESS_TEST_PATHS: "{\"web-platform-tests-wdspec\": [\"/_mozilla/webdriver\", \"/_mozilla/webdriver/take_full_screenshot\", \"/webdriver/tests/add_cookie\", \"/webdriver/tests/close_window\", \"/webdriver/tests/delete_session\", \"/webdriver/tests/element_click\", \"/webdriver/tests/execute_script\", \"/webdriver/tests/find_element_from_shadow_root\", \"/webdriver/tests/find_elements_from_shadow_root\", \"/webdriver/tests/get_active_element\", \"/webdriver/tests/get_computed_role\", \"/webdriver/tests/get_element_css_value\", \"/webdriver/tests/get_element_shadow_root\", \"/webdriver/tests/get_named_cookie\", \"/webdriver/tests/get_title\", \"/webdriver/tests/get_window_rect\", \"/webdriver/tests/is_element_selected\", \"/webdriver/tests/navigate_to\", \"/webdriver/tests/perform_actions\", \"/webdriver/tests/refresh\", \"/webdriver/tests/set_timeouts\", \"/webdriver/tests/switch_to_frame\", \"/webdriver/tests/take_element_screenshot\"]}"
+          TESTS_BY_MANIFEST_URL: "https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/Q4PbHU1FQZOc05hl-IsiMQ/artifacts/public/tests-by-manifest.json.gz"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/target.test_packages.json\"}"
+        run: |
+          python run-task -- python -u mozharness\scripts\web_platform_tests.py --cfg mozharness\configs\web_platform_tests\prod_config_windows_taskcluster.py --test-type=wdspec --setpref=toolkit.asyncshutdown.log=true --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --download-symbols true
+  debug-web-platform-tests-wdspec-e10s-1:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - name: mounts
+        run: |
+          curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/mozharness.zip --output mozharness.zip
+          7z x -omozharness mozharness.zip
+          curl -L https://hg.mozilla.org/try/raw-file/d6f981475764dc0fab78bc4f5d8d4601e1ca21f6/taskcluster/scripts/run-task --output ./run-task
+          curl -L https://hg.mozilla.org/try/raw-file/d6f981475764dc0fab78bc4f5d8d4601e1ca21f6/taskcluster/scripts/misc/fetch-content --output ./fetch-content
+      - name: dependencies
+        run: |
+          python -m pip install --upgrade zstandard
+          python -m pip install --upgrade certifi
+      - name: test
+        env:
+          TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
+          PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"MfZ57fS0RJq2SDEaJuIF-w\"}, {\"artifact\": \"public/build/geckodriver.zip\", \"extract\": true, \"task\": \"Im-_glk4R_6cfQvYPKId_g\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"RJVVjsRKS_WpChQ-NujlIw\"}]"
+          TRY_SELECTOR: "chooser"
+          MOZ_SCM_LEVEL: "1"
+          GECKO_HEAD_REV: "d6f981475764dc0fab78bc4f5d8d4601e1ca21f6"
+          MOZ_AUTOMATION: "1"
+          TRY_COMMIT_MSG: ""
+          MOZ_FETCHES_DIR: "fetches"
+          SCCACHE_DISABLE: "1"
+          GECKO_HEAD_REPOSITORY: "https://hg.mozilla.org/try"
+          MOZHARNESS_TEST_PATHS: "{\"web-platform-tests-wdspec\": [\"/_mozilla/webdriver/new_session\", \"/webdriver/tests/accept_alert\", \"/webdriver/tests/bidi\", \"/webdriver/tests/delete_cookie\", \"/webdriver/tests/element_clear\", \"/webdriver/tests/execute_async_script\", \"/webdriver/tests/find_element_from_element\", \"/webdriver/tests/find_elements_from_element\", \"/webdriver/tests/fullscreen_window\", \"/webdriver/tests/get_computed_label\", \"/webdriver/tests/get_element_attribute\", \"/webdriver/tests/get_element_rect\", \"/webdriver/tests/get_element_text\", \"/webdriver/tests/get_timeouts\", \"/webdriver/tests/get_window_handles\", \"/webdriver/tests/is_element_enabled\", \"/webdriver/tests/minimize_window\", \"/webdriver/tests/new_window\", \"/webdriver/tests/print\", \"/webdriver/tests/send_alert_text\", \"/webdriver/tests/status\", \"/webdriver/tests/switch_to_window\"]}"
+          TESTS_BY_MANIFEST_URL: "https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/Q4PbHU1FQZOc05hl-IsiMQ/artifacts/public/tests-by-manifest.json.gz"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/target.test_packages.json\"}"
+        run: |
+          python run-task -- python -u mozharness\scripts\web_platform_tests.py --cfg mozharness\configs\web_platform_tests\prod_config_windows_taskcluster.py --test-type=wdspec --setpref=toolkit.asyncshutdown.log=true --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --download-symbols true
+  debug-web-platform-tests-wdspec-e10s-3:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - name: mounts
+        run: |
+          curl -L https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/mozharness.zip --output mozharness.zip
+          7z x -omozharness mozharness.zip
+          curl -L https://hg.mozilla.org/try/raw-file/d6f981475764dc0fab78bc4f5d8d4601e1ca21f6/taskcluster/scripts/run-task --output ./run-task
+          curl -L https://hg.mozilla.org/try/raw-file/d6f981475764dc0fab78bc4f5d8d4601e1ca21f6/taskcluster/scripts/misc/fetch-content --output ./fetch-content
+      - name: dependencies
+        run: |
+          python -m pip install --upgrade zstandard
+          python -m pip install --upgrade certifi
+      - name: test
+        env:
+          TASKCLUSTER_ROOT_URL: https://firefox-ci-tc.services.mozilla.com
+          PYTHON: C:\hostedtoolcache\windows\Python\3.7.9\x64\python.exe
+          MOZ_FETCHES: "[{\"artifact\": \"public/build/fix-stacks.tar.bz2\", \"extract\": true, \"task\": \"MfZ57fS0RJq2SDEaJuIF-w\"}, {\"artifact\": \"public/build/geckodriver.zip\", \"extract\": true, \"task\": \"Im-_glk4R_6cfQvYPKId_g\"}, {\"artifact\": \"public/build/minidump_stackwalk.tar.xz\", \"extract\": true, \"task\": \"RJVVjsRKS_WpChQ-NujlIw\"}]"
+          TRY_SELECTOR: "chooser"
+          MOZ_SCM_LEVEL: "1"
+          GECKO_HEAD_REV: "d6f981475764dc0fab78bc4f5d8d4601e1ca21f6"
+          MOZ_AUTOMATION: "1"
+          TRY_COMMIT_MSG: ""
+          MOZ_FETCHES_DIR: "fetches"
+          SCCACHE_DISABLE: "1"
+          GECKO_HEAD_REPOSITORY: "https://hg.mozilla.org/try"
+          MOZHARNESS_TEST_PATHS: "{\"web-platform-tests-wdspec\": [\"/_mozilla/webdriver/execute_async_script\", \"/infrastructure/webdriver/tests\", \"/webdriver/tests/back\", \"/webdriver/tests/delete_all_cookies\", \"/webdriver/tests/dismiss_alert\", \"/webdriver/tests/element_send_keys\", \"/webdriver/tests/find_element\", \"/webdriver/tests/find_elements\", \"/webdriver/tests/forward\", \"/webdriver/tests/get_alert_text\", \"/webdriver/tests/get_current_url\", \"/webdriver/tests/get_element_property\", \"/webdriver/tests/get_element_tag_name\", \"/webdriver/tests/get_page_source\", \"/webdriver/tests/get_window_handle\", \"/webdriver/tests/interface\", \"/webdriver/tests/maximize_window\", \"/webdriver/tests/new_session\", \"/webdriver/tests/permissions\", \"/webdriver/tests/release_actions\", \"/webdriver/tests/set_window_rect\", \"/webdriver/tests/switch_to_parent_frame\", \"/webdriver/tests/take_screenshot\"]}"
+          TESTS_BY_MANIFEST_URL: "https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/Q4PbHU1FQZOc05hl-IsiMQ/artifacts/public/tests-by-manifest.json.gz"
+          EXTRA_MOZHARNESS_CONFIG: "{\"installer_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/target.zip\", \"test_packages_url\": \"https://firefox-ci-tc.services.mozilla.com/api/queue/v1/task/ajeHBiXwQf2IzDxEtNUNSw/artifacts/public/build/target.test_packages.json\"}"
+        run: |
+          python run-task -- python -u mozharness\scripts\web_platform_tests.py --cfg mozharness\configs\web_platform_tests\prod_config_windows_taskcluster.py --test-type=wdspec --setpref=toolkit.asyncshutdown.log=true --setpref=media.peerconnection.mtransport_process=false --setpref=network.process.enabled=false --download-symbols true
